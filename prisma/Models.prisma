@@ -1,0 +1,360 @@
+model Language {
+  ISO_639_1        String                               @id
+  name             String
+  createdAt        DateTime                             @default(now())
+  updatedAt        DateTime                             @updatedAt
+  books            BookTranslation[]
+  editors          EditorTranslation[]
+  previews         PreviewTranslation[]
+  categories       CategoryTranslation[]
+  libraries        SpecializedLibraryTranslation[]
+  publishingHouses PublishingHouseTranslation[]
+  heritages        ImamHeritageTranslation[]
+  heritageSections ImamHeritageSectionTranslation[]
+  heritageItems    ImamHeritageSectionItemTranslation[]
+  activity         ActivityTranslation[]
+}
+
+model Activity {
+  id                   Int                   @id @default(autoincrement())
+  thumbnail            String
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  ActivityTranslations ActivityTranslation[]
+}
+
+model ActivityTranslation {
+  id         Int      @id @default(autoincrement())
+  activityId Int
+  activity   Activity @relation(fields: [activityId], references: [id])
+  title      String
+  content    String
+  languageId String
+  language   Language @relation(fields: [languageId], references: [ISO_639_1])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Book {
+  id            Int               @id @default(autoincrement())
+  isbn          String?           @unique
+  paperType     String
+  chapters      Int
+  pages         Int
+  category      BookCategory[]
+  coverImageURL String
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  deletedAt     DateTime?
+  translations  BookTranslation[]
+  editors       BookEditor[]
+  previews      Preview[]
+}
+
+model BookTranslation {
+  id          Int      @id @default(autoincrement())
+  bookID      Int
+  languageId  String
+  title       String
+  description String
+  book        Book     @relation(fields: [bookID], references: [id])
+  language    Language @relation(fields: [languageId], references: [ISO_639_1])
+}
+
+model Editor {
+  editorId     Int                  @id @default(autoincrement())
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  deletedAt    DateTime?
+  translations EditorTranslation[]
+  books        BookEditor[]
+  libraries    SpecializedLibrary[]
+}
+
+model EditorTranslation {
+  id         Int      @id @default(autoincrement())
+  editorId   Int
+  languageId String
+  name       String
+  role       String
+  editor     Editor   @relation(fields: [editorId], references: [editorId])
+  language   Language @relation(fields: [languageId], references: [ISO_639_1])
+}
+
+model BookEditor {
+  id       Int    @id @default(autoincrement())
+  bookID   Int
+  editorID Int
+  book     Book   @relation(fields: [bookID], references: [id])
+  editor   Editor @relation(fields: [editorID], references: [editorId])
+}
+
+model Preview {
+  id           Int                  @id @default(autoincrement())
+  bookId       Int
+  page         Int
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  translations PreviewTranslation[]
+  book         Book                 @relation(fields: [bookId], references: [id])
+}
+
+model PreviewTranslation {
+  id         Int      @id @default(autoincrement())
+  previewId  Int
+  languageId String
+  content    String
+  preview    Preview  @relation(fields: [previewId], references: [id])
+  language   Language @relation(fields: [languageId], references: [ISO_639_1])
+}
+
+model Category {
+  id           Int                   @id @default(autoincrement())
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  deletedAt    DateTime?
+  translations CategoryTranslation[]
+  books        BookCategory[]
+  libraries    SpecializedLibrary[]
+}
+
+model BookCategory {
+  bookId     Int
+  categoryId Int
+  book       Book     @relation(fields: [bookId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@id([bookId, categoryId])
+}
+
+model CategoryTranslation {
+  id          Int      @id @default(autoincrement())
+  categoryId  Int
+  languageId  String
+  name        String   @unique
+  description String
+  category    Category @relation(fields: [categoryId], references: [id])
+  language    Language @relation(fields: [languageId], references: [ISO_639_1])
+}
+
+model SpecializedLibrary {
+  itemID            Int                             @id @default(autoincrement())
+  categoryId        Int
+  categoryName      String
+  editorId          Int
+  publishingHouseID Int
+  publishingYear    DateTime
+  createdAt         DateTime                        @default(now())
+  updatedAt         DateTime                        @updatedAt
+  translations      SpecializedLibraryTranslation[]
+  magazineDetails   MagazineDetails?
+  category          Category                        @relation(fields: [categoryId], references: [id])
+  editor            Editor                          @relation(fields: [editorId], references: [editorId])
+  publishingHouse   PublishingHouse                 @relation(fields: [publishingHouseID], references: [id])
+}
+
+model SpecializedLibraryTranslation {
+  id         Int                @id @default(autoincrement())
+  itemID     Int
+  title      String
+  languageId String
+  library    SpecializedLibrary @relation(fields: [itemID], references: [itemID])
+  language   Language           @relation(fields: [languageId], references: [ISO_639_1])
+}
+
+model PublishingHouse {
+  id           Int                          @id @default(autoincrement())
+  createdAt    DateTime                     @default(now())
+  updatedAt    DateTime                     @updatedAt
+  translations PublishingHouseTranslation[]
+  libraries    SpecializedLibrary[]
+}
+
+model PublishingHouseTranslation {
+  id                Int             @id @default(autoincrement())
+  publishingHouseID Int
+  name              String
+  location          String
+  languageId        String
+  publishingHouse   PublishingHouse @relation(fields: [publishingHouseID], references: [id])
+  language          Language        @relation(fields: [languageId], references: [ISO_639_1])
+}
+
+model MagazineDetails {
+  itemID    Int                @id
+  issue     Int
+  part      Int
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  library   SpecializedLibrary @relation(fields: [itemID], references: [itemID])
+}
+
+model ImamHeritage {
+  heritageId   Int                       @id @default(autoincrement())
+  name         String
+  createdAt    DateTime                  @default(now())
+  updatedAt    DateTime                  @updatedAt
+  translations ImamHeritageTranslation[]
+  sections     ImamHeritageSection[]
+}
+
+model ImamHeritageTranslation {
+  id          Int          @id @default(autoincrement())
+  heritageId  Int
+  title       String
+  description String
+  languageId  String
+  heritage    ImamHeritage @relation(fields: [heritageId], references: [heritageId])
+  language    Language     @relation(fields: [languageId], references: [ISO_639_1])
+}
+
+model ImamHeritageSection {
+  sectionId    Int                              @id @default(autoincrement())
+  heritageId   Int
+  createdAt    DateTime                         @default(now())
+  updatedAt    DateTime                         @updatedAt
+  translations ImamHeritageSectionTranslation[]
+  items        ImamHeritageSectionItem[]
+  heritage     ImamHeritage                     @relation(fields: [heritageId], references: [heritageId])
+}
+
+model ImamHeritageSectionTranslation {
+  id         Int                 @id @default(autoincrement())
+  sectionId  Int
+  title      String
+  languageId String
+  section    ImamHeritageSection @relation(fields: [sectionId], references: [sectionId])
+  language   Language            @relation(fields: [languageId], references: [ISO_639_1])
+}
+
+model ImamHeritageSectionItem {
+  itemId       Int                                  @id @default(autoincrement())
+  sectionId    Int
+  createdAt    DateTime                             @default(now())
+  updatedAt    DateTime                             @updatedAt
+  translations ImamHeritageSectionItemTranslation[]
+  section      ImamHeritageSection                  @relation(fields: [sectionId], references: [sectionId])
+}
+
+model ImamHeritageSectionItemTranslation {
+  id         Int                     @id @default(autoincrement())
+  itemId     Int
+  languageId String
+  content    String
+  item       ImamHeritageSectionItem @relation(fields: [itemId], references: [itemId])
+  language   Language                @relation(fields: [languageId], references: [ISO_639_1])
+}
+
+model Info {
+  id            Int    @id @default(autoincrement())
+  links         Json
+  phoneNumber   String
+  searchHistory String
+}
+
+model SearchLog {
+  searchTerm   String   @id @unique
+  lastSearched DateTime @default(now())
+  frequency    Int
+}
+
+// CMS User Management
+
+model CMS_Users {
+  userId      Int                @id @default(autoincrement())
+  username    String             @unique
+  password    String
+  email       String             @unique
+  firstName   String
+  lastName    String
+  lastLogin   DateTime?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  roles       CMS_UserRoles[]
+  auditTrails CMS_AuditTrail[]
+  media       CMS_MediaLibrary[]
+}
+
+model CMS_Roles {
+  roleId      Int                   @id @default(autoincrement())
+  roleName    String                @unique
+  description String
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  users       CMS_UserRoles[]
+  permissions CMS_RolePermissions[]
+}
+
+model CMS_UserRoles {
+  userId Int
+  roleId Int
+  user   CMS_Users @relation(fields: [userId], references: [userId])
+  role   CMS_Roles @relation(fields: [roleId], references: [roleId])
+
+  @@id([userId, roleId])
+}
+
+// CMS Content Versioning
+
+model CMS_ContentVersions {
+  versionId     Int      @id @default(autoincrement())
+  contentId     Int
+  contentTypeId String
+  data          Json
+  createdAt     DateTime @default(now())
+}
+
+// CMS Audit Trail
+
+model CMS_AuditTrail {
+  auditId     Int       @id @default(autoincrement())
+  userId      Int
+  actionType  String
+  description String
+  timestamp   DateTime  @default(now())
+  user        CMS_Users @relation(fields: [userId], references: [userId])
+}
+
+// CMS Permissions
+
+model CMS_Permissions {
+  permissionId Int                   @id @default(autoincrement())
+  name         String                @unique
+  description  String
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  roles        CMS_RolePermissions[]
+}
+
+model CMS_RolePermissions {
+  roleId       Int
+  permissionId Int
+  role         CMS_Roles       @relation(fields: [roleId], references: [roleId])
+  permission   CMS_Permissions @relation(fields: [permissionId], references: [permissionId])
+
+  @@id([roleId, permissionId])
+}
+
+// CMS Media Library
+
+model CMS_MediaLibrary {
+  mediaId          Int       @id @default(autoincrement())
+  path             String
+  type             String
+  size             Int
+  uploadedByUserId Int
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  user             CMS_Users @relation(fields: [uploadedByUserId], references: [userId])
+}
+
+// CMS Settings
+
+model CMS_Settings {
+  settingId   Int      @id @default(autoincrement())
+  key         String   @unique
+  value       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
