@@ -112,13 +112,20 @@ async function seedBooks(client) {
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS books (
         id SERIAL PRIMARY KEY,
-        isbn VARCHAR(255) UNIQUE,
-        paper_type VARCHAR(255),
-        chapters INT,
-        pages INT,
-        cover_image_url VARCHAR(255),
+        isbn VARCHAR(255),
+        category_id INT REFERENCES categories(id),
+        cover_image_url VARCHAR(255) NOT NULL,
+        title VARCHAR(255) NOT NULL,
+        author VARCHAR(255) NOT NULL,
+        description TEXT CHECK (LENGTH(description) <= 1000),
+        pages_count INT,
+        chapters_count INT DEFAULT 1,
+        issue_date DATE,
+        publisher VARCHAR(255),
+        print_house VARCHAR(255),
+        file_location VARCHAR(255),
+        available_languages TEXT[], -- Array of strings
         created_at TIMESTAMPTZ DEFAULT NOW(),
-        updated_at TIMESTAMPTZ DEFAULT NOW(),
         deleted_at TIMESTAMPTZ
       );
     `
@@ -129,14 +136,14 @@ async function seedBooks(client) {
     const insertedBooks = await Promise.all(
       books.map(async (book) => {
         const result = await client.sql`
-          INSERT INTO books (id, isbn, paper_type, chapters, pages, cover_image_url, created_at, updated_at, deleted_at)
-          VALUES (${book.id}, ${book.isbn}, ${book.paperType}, ${book.chapters}, ${book.pages}, ${book.coverImageURL}, ${book.createdAt}, ${book.updatedAt}, ${book.deletedAt})
+          INSERT INTO books (isbn, category_id, cover_image_url, title, author, description, pages_count, chapters_count, issue_date, publisher, print_house, file_location, available_languages)
+          VALUES (${book.isbn}, ${book.categoryId}, ${book.coverImageURL}, ${book.title}, ${book.author}, ${book.description}, ${book.pagesCount}, ${book.chaptersCount}, ${book.issueDate}, ${book.publisher}, ${book.printHouse}, ${book.fileLocation}, ${book.availableLanguages})
           ON CONFLICT (id) DO NOTHING
           RETURNING *;
         `
 
         return result[0] // Use RETURNING to get the inserted row
-      }),
+      })
     )
 
     console.log(`Seeded ${insertedBooks.length} books`)
@@ -417,7 +424,7 @@ async function seedUsers(client) {
     // Create the "users" table if it doesn't exist
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS users (
-        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         phone_number VARCHAR(20),
         email TEXT NOT NULL UNIQUE,

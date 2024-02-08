@@ -6,20 +6,11 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 
-import type { Book, Category } from "@/lib/definitions"
+import type { Book } from "@/lib/definitions"
 import { books, categories } from "@/lib/data"
 
-categories.unshift({
-	label: "كل الاصناف",
-	books: categories
-		.map((category) => category.books)
-		.reduce((acc, books) => acc.concat(books), []),
-})
-
 const Publications = () => {
-	const [selectedCategory, setSelectedCategory] = useState<Category>(
-		categories[0],
-	)
+	const [selectedCategory, setSelectedCategory] = useState(categories[0])
 
 	return (
 		<div className="max-w-7xl mx-auto my-10 md:max-w-5xl lg:max-w-7xl">
@@ -28,16 +19,16 @@ const Publications = () => {
 					اصداراتنا
 				</h3>
 				<div className="flex flex-col md:flex-row gap-5 text-gray-500 text-lg">
-					{categories.map((item) => (
+					{categories.map((category) => (
 						<button
-							key={item.label}
-							onClick={() => setSelectedCategory(item)}
+							key={category}
+							onClick={() => setSelectedCategory(category)}
 							className={`cursor-pointer border-b-2 hover:text-primary border-transparent hover:border-primary hover:border-opacity-30 duration-300 p-2 text-center ${
-								selectedCategory === item &&
+								selectedCategory === category &&
 								"border-b-secondary-700 text-secondary-700"
 							}`}
 						>
-							{item.label}
+							{category}
 						</button>
 					))}
 				</div>
@@ -55,34 +46,36 @@ const Publications = () => {
 			</div>
 			<AnimatePresence mode="wait">
 				<motion.div
-					key={selectedCategory ? selectedCategory.label : "empty"}
+					key={selectedCategory ? selectedCategory : "empty"}
 					initial={{ x: -10, opacity: 0 }}
 					animate={{ x: 0, opacity: 1 }}
 					exit={{ x: 10, opacity: 0 }}
 					transition={{ duration: 0.2 }}
 				>
-					{(categories.find(
-						(category) => category === selectedCategory,
-					)?.books?.length ?? 0) > 0 ? (
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-							{categories
-								.find(
-									(category) => category === selectedCategory,
-								)
-								?.books.map((book) => (
-									<PublicationShowcaseCard
-										{...book}
-										key={book.title}
-									/>
-								))}
-						</div>
-					) : (
-						<div className="flex justify-center items-center m-16">
-							<div className="p-16 text-center border-2 border-dashed rounded-2xl border-slate-400">
-								لا توجد كتب في هذا الصنف!
-							</div>
-						</div>
-					)}
+					{books
+						.filter(
+							(book) =>
+								categories[book.categoryId] ===
+								selectedCategory,
+						)
+						.map((book) => (
+							<>
+								{book ? (
+									<div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+										<PublicationShowcaseCard
+											{...book}
+											key={book.id}
+										/>
+									</div>
+								) : (
+									<div className="flex justify-center items-center m-16">
+										<div className="p-16 text-center border-2 border-dashed rounded-2xl border-slate-400">
+											لا توجد كتب في هذا الصنف!
+										</div>
+									</div>
+								)}
+							</>
+						))}
 				</motion.div>
 			</AnimatePresence>
 		</div>
@@ -96,7 +89,7 @@ export const PublicationShowcaseCard = (book: Book) => (
 				width={200}
 				height={300}
 				className="w-full h-auto max-h-64 scale-100 object-cover duration-300 ease-in-out group-hover:scale-125"
-				src={book.imageSrc}
+				src={book.coverImageUrl}
 				alt="Book cover"
 			/>
 		</div>
@@ -112,7 +105,7 @@ export const PublicationShowcaseCard = (book: Book) => (
 			<div className="flex flex-col md:flex-row justify-around gap-2 text-xs font-extralight text-gray-400">
 				<span>{book.pagesCount} صفحة</span>
 				<span>{book.chaptersCount} فصول</span>
-				<span>{book.issue_date}</span>
+				<span>{book.issueDate}</span>
 			</div>
 		</div>
 	</div>

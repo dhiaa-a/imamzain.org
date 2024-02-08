@@ -1,11 +1,19 @@
+"use client"
+
 import Image from "next/image"
-import { PublicationShowcaseCard } from "../../components/publications"
-import { Badge } from "../../components/ui/badge"
-import { Input } from "../../components/ui/input"
+import { PublicationShowcaseCard } from "@/components/publications"
+import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { books } from "@/app/lib/data"
+import { books, categories } from "@/lib/data"
+import { AnimatePresence, motion } from "framer-motion"
+import { useState } from "react"
+
+import { ArrowLeftIcon } from "@radix-ui/react-icons"
 
 export default function Home() {
+	const [selectedCategory, setSelectedCategory] = useState(categories[0])
 	return (
 		<main className="max-w-screen-2xl mx-auto my-10">
 			{/* آخر الاصدارات */}
@@ -29,81 +37,80 @@ export default function Home() {
 						<div>
 							<Input type="text" placeholder="ابحث" />
 						</div>
-						
-						<div className="flex flex-col md:flex-row gap-5 text-gray-500 text-lg">
-					{categories.map((item) => (
-						<button
-							key={item.label}
-							onClick={() => setSelectedCategory(item)}
-							className={`cursor-pointer border-b-2 hover:text-primary border-transparent hover:border-primary hover:border-opacity-30 duration-300 p-2 text-center ${
-								selectedCategory === item &&
-								"border-b-secondary-700 text-secondary-700"
-							}`}
-						>
-							{item.label}
-						</button>
-					))}
-				</div>
-				<div>
-					<Button
-						variant={"ghost"}
-						className="text-primary group space-x-4 text-lg -mr-4 hover:bg-transparent duration-300"
-					>
-						<p className="group-hover:text-secondary duration-300 ease-in-out">
-							اعرض المزيد
-						</p>
-						<ArrowLeftIcon className="text-secondary -translate-x-1 opacity-0 group-hover:opacity-100 group-hover:-translate-x-3 ease-in-out duration-300" />
-					</Button>
-				</div>
-			</div>
-			<AnimatePresence mode="wait">
-				<motion.div
-					key={selectedCategory ? selectedCategory.label : "empty"}
-					initial={{ x: -10, opacity: 0 }}
-					animate={{ x: 0, opacity: 1 }}
-					exit={{ x: 10, opacity: 0 }}
-					transition={{ duration: 0.2 }}
-				>
-					{(categories.find(
-						(category) => category === selectedCategory,
-					)?.books?.length ?? 0) > 0 ? (
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-							{categories
-								.find(
-									(category) => category === selectedCategory,
-								)
-								?.books.map((book) => (
-									<PublicationShowcaseCard
-										{...book}
-										key={book.title}
-									/>
-								))}
-						</div>
-					) : (
-						<div className="flex justify-center items-center m-16">
-							<div className="p-16 text-center border-2 border-dashed rounded-2xl border-slate-400">
-								لا توجد كتب في هذا الصنف!
-							</div>
-						</div>
-					)}
-				</motion.div>
-			</AnimatePresence>
-		</div>
 
-						<div>قائمة الى شبكة</div>
+						<div className="flex flex-col md:flex-row gap-5 text-gray-500 text-lg">
+							{categories.map((category) => (
+								<button
+									key={category}
+									onClick={() =>
+										setSelectedCategory(category)
+									}
+									className={`cursor-pointer border-b-2 hover:text-primary border-transparent hover:border-primary hover:border-opacity-30 duration-300 p-2 text-center ${
+										selectedCategory === category &&
+										"border-b-secondary-700 text-secondary-700"
+									}`}
+								>
+									{category}
+								</button>
+							))}
+						</div>
+						<div>
+							<Button
+								variant={"ghost"}
+								className="text-primary group space-x-4 text-lg -mr-4 hover:bg-transparent duration-300"
+							>
+								<p className="group-hover:text-secondary duration-300 ease-in-out">
+									اعرض المزيد
+								</p>
+								<ArrowLeftIcon className="text-secondary -translate-x-1 opacity-0 group-hover:opacity-100 group-hover:-translate-x-3 ease-in-out duration-300" />
+							</Button>
+						</div>
 					</div>
+					<AnimatePresence mode="wait">
+						<motion.div
+							key={selectedCategory ? selectedCategory : "empty"}
+							initial={{ x: -10, opacity: 0 }}
+							animate={{ x: 0, opacity: 1 }}
+							exit={{ x: 10, opacity: 0 }}
+							transition={{ duration: 0.2 }}
+						>
+							{books
+								.filter(
+									(book) =>
+										categories[book.categoryId] ===
+										selectedCategory,
+								)
+								.map((book) => (
+									<>
+										{book ? (
+											<div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+												<PublicationShowcaseCard
+													{...book}
+													key={book.id}
+												/>
+											</div>
+										) : (
+											<div className="flex justify-center items-center m-16">
+												<div className="p-16 text-center border-2 border-dashed rounded-2xl border-slate-400">
+													لا توجد كتب في هذا الصنف!
+												</div>
+											</div>
+										)}
+									</>
+								))}
+						</motion.div>
+					</AnimatePresence>
+
+					<div>قائمة الى شبكة</div>
 					<div className="max-w-screen-2xl mx-auto grid gap-10 grid-cols-5 my-8">
 						{books.map((book, index) => (
 							<Link
-								href={`/publications/${book.title.replaceAll(
-									" ",
-									"-",
-								)}`}
+								href={`/publications/${book.slug}`}
 								key={index}
 								className="flex flex-col shadow-sm rounded-xl hover:-translate-y-2 hover:shadow-xl hover:border-primary-200 duration-300"
 							>
 								<Image
-									src={book.imageSrc}
+									src={book.coverImageUrl}
 									className=" w-full rounded-t-xl"
 									width={200}
 									height={200}
@@ -122,7 +129,7 @@ export default function Home() {
 									>
 										علوم انسانية
 									</Badge>
-									<p>{book.issue_date}</p>
+									<p>{book.issueDate}</p>
 								</div>
 							</Link>
 						))}

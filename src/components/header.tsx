@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import Socials from "./ui/socials"
 
-import { AnimatePresence, easeInOut, motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
 import clsx from "clsx"

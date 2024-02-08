@@ -1,51 +1,81 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
-import { books } from "@/app/lib/data"
+import { books } from "@/lib/data"
 
-import { ArrowLeftIcon } from "@radix-ui/react-icons"
+import { DownloadIcon } from "@radix-ui/react-icons"
 import { Button } from "@/components/ui/button"
 import { ShareIcon } from "@/components/icons"
 import clsx from "clsx"
+import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+	type CarouselApi,
+} from "@/components/ui/carousel"
+import { Card, CardContent } from "@/components/ui/card"
+import Link from "next/link"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
 
 export default function Page({ params }: { params: { slug: string } }) {
 	const [activePage, setActivePage] = useState(1)
-	const book = books.filter(
-		(book) => book.title.replace(" ", "-") === params.slug,
-	)[0]
+	const book = books.filter((book) => book.slug === params.slug)[0]
+
+	const [api, setApi] = useState<CarouselApi>()
+	const [current, setCurrent] = useState(0)
+	const [count, setCount] = useState(0)
+
+	useEffect(() => {
+		if (!api) {
+			return
+		}
+
+		setCount(api.scrollSnapList().length)
+		setCurrent(api.selectedScrollSnap() + 1)
+
+		api.on("select", () => {
+			setCurrent(api.selectedScrollSnap() + 1)
+		})
+	}, [api])
+
 	return (
 		// page container
-		<div className="flex justify-center items-center my-40">
+		<div className="flex flex-col justify-center items-center">
 			{/* book info container */}
-			<div className="flex flex-col justify-center max-w-screen-2xl w-full gap-20 rounded-lg bg-gray-50 px-8 pb-10 pt-8 shadow-md">
+			<div className="relative my-40 flex flex-col justify-center max-w-screen-xl w-full gap-10 rounded-lg bg-gray-50 shadow-md pt-52">
 				{/* image and main info container */}
-				<div className="-mt-60 flex w-full items-center">
+				<div className="absolute -top-44 flex w-full justify-center gap-20 items-center">
 					{/* image container */}
-					<div className="overflow-hidden w-1/2 drop-shadow-sm flex md:justify-center">
+					<div className="overflow-hidden drop-shadow-sm flex md:justify-center">
 						<Image
 							width={600}
 							height={600}
-							className="w-[20rem] object-cover rounded-xl border-opacity-45  border-2 border-gray-200 "
-							src={book.imageSrc}
-							alt="Book cover"
+							className="w-60 object-cover rounded-xl border-opacity-45 border-2 border-gray-200 "
+							src={book.coverImageUrl}
+							alt={book.title}
 						/>
 					</div>
-					<div className="w-1/2 flex flex-col gap-20">
+					<div className=" flex flex-col gap-10">
 						<div>
-							<h1 className="text-3xl font-bold mb-4">
+							<h1 className="text-2xl font-bold mb-4">
 								{book.title}
 							</h1>
-							<p className="text-gray-400">{book.author}</p>
+							<p className="text-xl font-semibold text-gray-400">
+								تأليف {book.author}
+							</p>
 						</div>
 						<div className="pb-4 w-full border-b-2 border-slate-300 flex justify-between">
 							<Button
 								variant={"default"}
-								className="bg-primary text-md p-5 rounded-full flex gap-4 items-center"
+								className="bg-primary text-md p-5 rounded-full flex gap-4 items-center duration-300"
 							>
-								<p>ابدأ بالقراءة</p>
-								<ArrowLeftIcon />
+								<p>قم بتنزيل الكتاب</p>
+								<DownloadIcon />
 							</Button>
 							<Button
 								variant={"outline"}
@@ -57,18 +87,17 @@ export default function Page({ params }: { params: { slug: string } }) {
 						</div>
 					</div>
 				</div>
-				<div className="w-3/4 mx-auto flex justify-around pb-5 border-b-2 border-slate-300">
-					<div className="">
+				<div className="w-3/4 mx-auto flex justify-start gap-10 pb-10 border-b-2 border-slate-300">
+					<div className="w-1/3">
 						<ul>
 							<li>
 								<p className="text-2xl font-semibold my-2">
 									المحررين
 								</p>
 								<ul className="list-disc mr-10 text-md">
-									<li>
-										العلامة الشيخ محمد باقر المجسلي - المؤلف
-									</li>
-									<li>السيد مهدي الرحابي - محقق</li>
+									{book.editors.map((editor) => (
+										<li key={editor}>{editor}</li>
+									))}
 								</ul>
 							</li>
 							<li>
@@ -76,8 +105,9 @@ export default function Page({ params }: { params: { slug: string } }) {
 									اللغة
 								</p>
 								<ul className="list-disc mr-10 text-md">
-									<li>اللغة العربية</li>
-									<li>اللغة الفارسية</li>
+									{book.availableLanguages.map((lang) => (
+										<li key={lang}>{lang}</li>
+									))}
 								</ul>
 							</li>
 							<li>
@@ -85,11 +115,35 @@ export default function Page({ params }: { params: { slug: string } }) {
 									تفاصيل الكتاب
 								</p>
 								<ul className="list-disc mr-10 text-md">
-									<li>نوع الورق: ورق محكم</li>
-									<li>التلوين: ملون</li>
-									<li>عدد الصفحات: 250 صفحة</li>
 									<li>
-										رقم ال <span>ISBN</span>:{" "}
+										<div className="flex gap-x-2">
+											<div>عدد الصفحات:</div>
+											<div>{book.pagesCount || 0}</div>
+										</div>
+									</li>
+									<li>
+										<div className="flex gap-x-2">
+											<div>عدد الاجزاء:</div>
+											<div>{book.chaptersCount || 0}</div>
+										</div>
+									</li>
+									<li>
+										<div className="flex gap-x-2">
+											<div>دار النشر:</div>
+											<div>{book.publisher || ""}</div>
+										</div>
+									</li>
+									<li>
+										<div className="flex gap-x-2">
+											<div>دار الطبع:</div>
+											<div>{book.printHouse || ""}</div>
+										</div>
+									</li>
+									<li>
+										<div className="flex gap-x-2">
+											<div>ISBN:</div>
+											<div>{book.isbn || "لا يوجد"}</div>
+										</div>
 									</li>
 								</ul>
 							</li>
@@ -97,17 +151,8 @@ export default function Page({ params }: { params: { slug: string } }) {
 					</div>
 					<div className="w-1/2">
 						<h2 className="text-2xl font-semibold">الوصف</h2>
-						<p className="text-gray-600 text-lg text-justify">
-							هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء
-							لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي
-							للنص أو شكل توضع الفقرات في الصفحة التي يقرأها.
-							ولذلك يتم استخدام طريقة لوريم إيبسوم لأنها تعطي
-							توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن استخدام
-							"هنا يوجد محتوى نصي، هنا يوجد محتوى نصي" فتجعلها
-							تبدو (أي الأحرف) وكأنها نص مقروء. العديد من برامح
-							النشر المكتبي وبرامح تحرير صفحات الويب لوريم إيبسوم
-							بشكل إفتراضي كنموذج عن النص، وإذا قمت بإدخال "lorem
-							ipsum" في أي محرك بحث ستبعض العبارات الفكاهية إليها.
+						<p className="text-gray-600 mr-10 text-lg text-justify">
+							{book.description}
 						</p>
 					</div>
 				</div>
@@ -147,23 +192,77 @@ export default function Page({ params }: { params: { slug: string } }) {
 						land. Look at the crowds of water-gazers there.
 					</p>
 				</div>
-				<div className="-mb-20 p-4 rounded-full bg-gray-100 shadow-lg w-1/2 mx-auto border-2 border-slate-200 flex justify-around items-center">
-					{[...Array.from({ length: 10 })].map((_, index) => (
-						<button
-							key={index}
-							onClick={() => setActivePage(index)}
-							className={clsx(
-								"rounded-full text-sm p-2 flex border-2 duration-150",
-								{
-									" border-primary-500": activePage === index,
-									"border-transparent hover:border-primary-200":
-										activePage !== index,
-								},
-							)}
-						>
-							{index + 1}
-						</button>
-					))}
+				<div className="w-full flex justify-center">
+					<div className="absolute -bottom-10 p-4 rounded-full bg-gray-100 shadow-lg w-1/2 mx-auto border-2 border-slate-200 flex justify-around items-center">
+						{[...Array.from({ length: 10 })].map((_, index) => (
+							<button
+								key={index}
+								onClick={() => setActivePage(index)}
+								className={clsx(
+									"rounded-full text-sm w-8 h-8 justify-center items-center flex border-2 duration-150",
+									{
+										" border-primary-500":
+											activePage === index,
+										"border-transparent hover:border-primary-200":
+											activePage !== index,
+									},
+								)}
+							>
+								{index + 1}
+							</button>
+						))}
+					</div>
+				</div>
+			</div>
+			<div className="w-full">
+				<Separator className="w-1/2 rounded-full h-0.5 mx-auto bg-primary" />
+				<h2 className="text-3xl font-semibold text-center my-10">
+					كتب ذات صلة
+				</h2>
+				<Carousel
+					opts={{ startIndex: books.length - 1 }}
+					setApi={setApi}
+					className="w-2/3 mx-auto"
+				>
+					<CarouselContent className="flex-row-reverse">
+						{books.map((book, index) => (
+							<CarouselItem key={index} className="md:basis-1/4">
+								<Link
+									href={`/publications/${book.slug}`}
+									key={index}
+									className="flex flex-col shadow-sm rounded-xl hover:-translate-y-2 hover:shadow-xl hover:border-primary-200 duration-300"
+								>
+									<Image
+										src={book.coverImageUrl}
+										className="w-full rounded-t-xl"
+										width={200}
+										height={200}
+										alt={book.title}
+									/>
+									<p className="text-start px-4 py-2 font-bold text-md">
+										{book.title}
+									</p>
+									<p className="text-start px-4 font-light text-sm">
+										{book.author}
+									</p>
+									<div className="flex gap-10 p-4">
+										<Badge
+											variant={"outline"}
+											className="bg-slate-50 border-transparent text-sm font-light"
+										>
+											علوم انسانية
+										</Badge>
+										<p>{book.issueDate}</p>
+									</div>
+								</Link>
+							</CarouselItem>
+						))}
+					</CarouselContent>
+					<CarouselPrevious />
+					<CarouselNext />
+				</Carousel>
+				<div className="py-2 text-center text-sm text-muted-foreground">
+					صفحة {count - current + 1} من {count}
 				</div>
 			</div>
 		</div>
