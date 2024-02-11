@@ -3,10 +3,11 @@ import { Book } from "./definitions"
 enum CategoryTypes {
 	Book = "كتاب",
 	Article = "مقال",
+	All = "كل الاصناف",
 }
 
 export const categories: string[] = [
-	"كل الاصناف",
+	CategoryTypes.All,
 	CategoryTypes.Book,
 	CategoryTypes.Article,
 ]

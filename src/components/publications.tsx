@@ -11,6 +11,13 @@ import { books, categories } from "@/lib/data"
 
 const Publications = () => {
 	const [selectedCategory, setSelectedCategory] = useState(categories[0])
+	const filteredBooks = books
+		.slice(books.length - 5, books.length - 1)
+		.filter(
+			(book) =>
+				categories[book.categoryId] === selectedCategory ||
+				selectedCategory === categories[0],
+		)
 
 	return (
 		<div className="max-w-7xl mx-auto my-10 md:max-w-5xl lg:max-w-7xl">
@@ -46,36 +53,29 @@ const Publications = () => {
 			</div>
 			<AnimatePresence mode="wait">
 				<motion.div
-					key={selectedCategory ? selectedCategory : "empty"}
+					key={selectedCategory}
 					initial={{ x: -10, opacity: 0 }}
 					animate={{ x: 0, opacity: 1 }}
 					exit={{ x: 10, opacity: 0 }}
 					transition={{ duration: 0.2 }}
+					className=""
 				>
-					{books
-						.filter(
-							(book) =>
-								categories[book.categoryId] ===
-								selectedCategory,
-						)
-						.map((book) => (
-							<>
-								{book ? (
-									<div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-										<PublicationShowcaseCard
-											{...book}
-											key={book.id}
-										/>
-									</div>
-								) : (
-									<div className="flex justify-center items-center m-16">
-										<div className="p-16 text-center border-2 border-dashed rounded-2xl border-slate-400">
-											لا توجد كتب في هذا الصنف!
-										</div>
-									</div>
-								)}
-							</>
-						))}
+					{filteredBooks.length > 0 ? (
+						<div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+							{filteredBooks.map((book) => (
+								<PublicationShowcaseCard
+									key={book.id}
+									{...book}
+								/>
+							))}
+						</div>
+					) : (
+						<div className="w-full flex justify-center items-center">
+							<div className="p-16 text-center border-2 border-dashed rounded-2xl border-slate-400">
+								لا توجد كتب في هذا الصنف!
+							</div>
+						</div>
+					)}
 				</motion.div>
 			</AnimatePresence>
 		</div>
@@ -88,7 +88,7 @@ export const PublicationShowcaseCard = (book: Book) => (
 			<Image
 				width={200}
 				height={300}
-				className="w-full h-auto max-h-64 scale-100 object-cover duration-300 ease-in-out group-hover:scale-125"
+				className="w-auto h-auto mx-auto max-h-64 rounded-xl scale-100 object-cover duration-300 ease-in-out"
 				src={book.coverImageUrl}
 				alt="Book cover"
 			/>
@@ -98,7 +98,7 @@ export const PublicationShowcaseCard = (book: Book) => (
 				<h2 className="text-lg font-semibold duration-300 group-hover:drop-shadow-sm">
 					{book.title}
 				</h2>
-				<p className="text-sm tracking-tight text-slate-400">
+				<p className="text-sm tracking-tight text-slate-400 mb-5 mt-2">
 					تأليف {book.author}
 				</p>
 			</div>

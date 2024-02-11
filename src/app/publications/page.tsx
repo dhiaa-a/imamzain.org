@@ -4,16 +4,22 @@ import Image from "next/image"
 import { PublicationShowcaseCard } from "@/components/publications"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { books, categories } from "@/lib/data"
 import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 
-import { ArrowLeftIcon } from "@radix-ui/react-icons"
+import { ListBulletIcon } from "@radix-ui/react-icons"
+import { Button } from "@/components/ui/button"
 
 export default function Home() {
 	const [selectedCategory, setSelectedCategory] = useState(categories[0])
+	const filteredBooks = books.filter(
+		(book) =>
+			categories[book.categoryId] === selectedCategory ||
+			selectedCategory === categories[0],
+	)
+
 	return (
 		<main className="max-w-screen-2xl mx-auto my-10">
 			{/* آخر الاصدارات */}
@@ -28,17 +34,21 @@ export default function Home() {
 
 			{/* كل الكتب */}
 			<div className="text-center my-24">
-				<h2 className="text-3xl m-4 font-semibold">
+				<h2 className="text-3xl my-4 font-semibold">
 					كل اصدارات المؤسسة
 				</h2>
 
-				<div className="max-w-full m-10">
-					<div className="flex justify-around">
-						<div>
-							<Input type="text" placeholder="ابحث" />
+				<div className="max-w-full my-10">
+					<div className="flex">
+						<div className="w-1/3">
+							<Input
+								className="w-fit"
+								type="text"
+								placeholder="ابحث"
+							/>
 						</div>
 
-						<div className="flex flex-col md:flex-row gap-5 text-gray-500 text-lg">
+						<div className="flex flex-col md:flex-row gap-5 text-gray-500 text-lg w-1/3 justify-center">
 							{categories.map((category) => (
 								<button
 									key={category}
@@ -54,86 +64,67 @@ export default function Home() {
 								</button>
 							))}
 						</div>
-						<div>
+						<div className="flex w-1/3 justify-end items-center">
 							<Button
 								variant={"ghost"}
-								className="text-primary group space-x-4 text-lg -mr-4 hover:bg-transparent duration-300"
+								size={"icon"}
+								className="p-1 border-[1px] border-transparent duration-300 hover:border-primary hover:bg-transparent hover:shadow-md rounded-md"
 							>
-								<p className="group-hover:text-secondary duration-300 ease-in-out">
-									اعرض المزيد
-								</p>
-								<ArrowLeftIcon className="text-secondary -translate-x-1 opacity-0 group-hover:opacity-100 group-hover:-translate-x-3 ease-in-out duration-300" />
+								<ListBulletIcon />
 							</Button>
 						</div>
 					</div>
 					<AnimatePresence mode="wait">
 						<motion.div
-							key={selectedCategory ? selectedCategory : "empty"}
-							initial={{ x: -10, opacity: 0 }}
-							animate={{ x: 0, opacity: 1 }}
-							exit={{ x: 10, opacity: 0 }}
-							transition={{ duration: 0.2 }}
+							key={selectedCategory}
+							initial={{ y: 10, opacity: 0 }}
+							animate={{ y: 0, opacity: 1 }}
+							exit={{ y: 10, opacity: 0 }}
+							transition={{ duration: 0.3 }}
+							className=""
 						>
-							{books
-								.filter(
-									(book) =>
-										categories[book.categoryId] ===
-										selectedCategory,
-								)
-								.map((book) => (
-									<>
-										{book ? (
-											<div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-												<PublicationShowcaseCard
-													{...book}
-													key={book.id}
-												/>
+							{filteredBooks.length > 0 ? (
+								<div className="max-w-screen-2xl mx-auto grid gap-10 grid-cols-5 my-8">
+									{filteredBooks.map((book) => (
+										<Link
+											href={`/publications/${book.slug}`}
+											key={book.id}
+											className="flex flex-col shadow-sm rounded-xl hover:-translate-y-2 hover:shadow-xl hover:border-primary-200 duration-300"
+										>
+											<Image
+												src={book.coverImageUrl}
+												className=" w-full rounded-t-xl"
+												width={200}
+												height={200}
+												alt={book.title}
+											/>
+											<p className="text-start px-4 py-2 font-bold text-md">
+												{book.title}
+											</p>
+											<p className="text-start px-4 font-light text-sm">
+												{book.author}
+											</p>
+											<div className="flex gap-10 p-4">
+												<Badge
+													variant={"outline"}
+													className="bg-slate-50 border-transparent text-sm font-light"
+												>
+													علوم انسانية
+												</Badge>
+												<p>{book.issueDate}</p>
 											</div>
-										) : (
-											<div className="flex justify-center items-center m-16">
-												<div className="p-16 text-center border-2 border-dashed rounded-2xl border-slate-400">
-													لا توجد كتب في هذا الصنف!
-												</div>
-											</div>
-										)}
-									</>
-								))}
+										</Link>
+									))}
+								</div>
+							) : (
+								<div className="w-full h-[40vh] flex justify-center items-center">
+									<div className="p-16 text-center border-2 border-dashed rounded-2xl border-slate-400">
+										لا توجد عناصر في هذا الصنف!
+									</div>
+								</div>
+							)}
 						</motion.div>
 					</AnimatePresence>
-
-					<div>قائمة الى شبكة</div>
-					<div className="max-w-screen-2xl mx-auto grid gap-10 grid-cols-5 my-8">
-						{books.map((book, index) => (
-							<Link
-								href={`/publications/${book.slug}`}
-								key={index}
-								className="flex flex-col shadow-sm rounded-xl hover:-translate-y-2 hover:shadow-xl hover:border-primary-200 duration-300"
-							>
-								<Image
-									src={book.coverImageUrl}
-									className=" w-full rounded-t-xl"
-									width={200}
-									height={200}
-									alt={book.title}
-								/>
-								<p className="text-start px-4 py-2 font-bold text-md">
-									{book.title}
-								</p>
-								<p className="text-start px-4 font-light text-sm">
-									{book.author}
-								</p>
-								<div className="flex gap-10 p-4">
-									<Badge
-										variant={"outline"}
-										className="bg-slate-50 border-transparent text-sm font-light"
-									>
-										علوم انسانية
-									</Badge>
-									<p>{book.issueDate}</p>
-								</div>
-							</Link>
-						))}
-					</div>
 				</div>
 			</div>
 		</main>
