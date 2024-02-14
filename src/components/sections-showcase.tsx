@@ -102,7 +102,7 @@ const sections = [
 
 export default function SectionsShowcase() {
 	return (
-		<div className="flex flex-col gap-2 h-screen my-16">
+		<div className="flex h-screen flex-col gap-2 my-16">
 			<div className="flex flex-col justify-center items-center max-w-4xl mx-auto text-center">
 				<h1 className="text-4xl font-bold tracking-tight">
 					تعرف على مختلف المجالات التي تهتم بها المؤسسة
@@ -112,7 +112,7 @@ export default function SectionsShowcase() {
 					سواء
 				</p>
 			</div>
-			<div className="flex flex-col items-stretch justify-center h-screen p-2 sm:flex-row sm:items-center">
+			<div className="flex justify-center h-full">
 				<div className="flex flex-col justify-center flex-grow items-stretch max-w-4xl w-full sm:flex-row sm:h-3/4 sm:overflow-hidden">
 					{sections.map(
 						(item) =>
@@ -122,7 +122,7 @@ export default function SectionsShowcase() {
 									className="group hover:grow-[10] hover:max-w-full cursor-pointer duration-500 ease-in-out flex-grow m-2 min-h-14 min-w-14 overflow-hidden pane relative rounded-3xl transition-all"
 								>
 									<div
-										className={`absolute bg-center bg-cover bg-white-500 ${item.imageUrl} bg-no-repeat duration-700 ease-in-out inset-0 scale-105 transition-all z-10`}
+										className={`absolute bg-center bg-cover bg-white-500 ${item.imageUrl} bg-no-repeat duration-700 ease-in-out inset-0 scale-100 transition-all z-10`}
 									/>
 									<div
 										className={`absolute bg-gradient-to-b bottom-0 duration-700 ease-in-out from-transparent h-1/2 inset-x-0 opacity-0 group-hover:opacity-75 group-hover:translate-y-0 ${item.gradientColor} transform transition-all translate-y-1/2 z-20`}

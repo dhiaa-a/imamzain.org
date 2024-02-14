@@ -37,9 +37,9 @@ export default function Breadcrumb() {
 								}`}
 							>
 								<span>
-									{index < pathNames.length - 2
+									{index == 0
 										? path
-										: index == pathNames.length - 2
+										: index == 1
 										? pages.map((link) => link[path])
 										: books.find((b) => b.slug === path)
 												?.title}

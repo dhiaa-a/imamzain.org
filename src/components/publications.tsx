@@ -8,6 +8,7 @@ import Image from "next/image"
 
 import type { Book } from "@/lib/definitions"
 import { books, categories } from "@/lib/data"
+import Link from "next/link"
 
 const Publications = () => {
 	const [selectedCategory, setSelectedCategory] = useState(categories[0])
@@ -83,7 +84,10 @@ const Publications = () => {
 }
 
 export const PublicationShowcaseCard = (book: Book) => (
-	<div className="group my-14 flex flex-col md:flex-row max-w-xl cursor-pointer gap-8 rounded-lg bg-gray-100 px-8 pb-10 pt-8 shadow-md duration-300 ease-in-out hover:-translate-y-1 hover:drop-shadow-md">
+	<Link
+		href={`/publications/${book.slug}`}
+		className="group my-14 flex flex-col md:flex-row max-w-xl cursor-pointer gap-8 rounded-lg bg-gray-100 px-8 pb-10 pt-8 shadow-md duration-300 ease-in-out hover:-translate-y-1 hover:drop-shadow-md"
+	>
 		<div className="-mt-32 flex justify-center overflow-hidden rounded-xl  border-opacity-45 drop-shadow-sm md:justify-end md:w-1/2">
 			<Image
 				width={200}
@@ -108,7 +112,7 @@ export const PublicationShowcaseCard = (book: Book) => (
 				<span>{book.issueDate}</span>
 			</div>
 		</div>
-	</div>
+	</Link>
 )
 
 export default Publications

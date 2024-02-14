@@ -1140,6 +1140,7 @@ export const PhoneIcon: FC<SVGProps<SVGSVGElement>> = (props) => {
 		</svg>
 	)
 }
+
 export const SendIcon: FC<SVGProps<SVGSVGElement>> = (props) => {
 	const { className, strokeWidth, color, width, height, fill, ...rest } =
 		props
@@ -1214,6 +1215,57 @@ export const ShareIcon: FC<SVGProps<SVGSVGElement>> = (props) => {
 	)
 }
 
+export const EmailIcon: FC<SVGProps<SVGSVGElement>> = (props) => {
+	const { className, strokeWidth, color, width, height, fill, ...rest } =
+		props
+
+	return (
+		<svg
+			fill={fill || "none"}
+			width={width || "24"}
+			height={height || "24"}
+			className={className || ""}
+			strokeWidth={strokeWidth || 2}
+			color={color || "currentColor"}
+			viewBox="0 0 24 24"
+			{...rest}
+		>
+			<path
+				d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12ZM16 12V13.5C16 14.8807 17.1193 16 18.5 16V16C19.8807 16 21 14.8807 21 13.5V12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21H16"
+				stroke="#296718"
+				strokeWidth="2"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+			/>
+		</svg>
+	)
+}
+
+export const LocationIcon: FC<SVGProps<SVGSVGElement>> = (props) => {
+	const { className, strokeWidth, color, width, height, fill, ...rest } =
+		props
+
+	return (
+		<svg
+			fill={fill || "none"}
+			width={width || "24"}
+			height={height || "24"}
+			className={className || ""}
+			strokeWidth={strokeWidth || 2}
+			color={color || "currentColor"}
+			viewBox="0 0 24 24"
+			{...rest}
+		>
+			<path
+				fillRule="evenodd"
+				clipRule="evenodd"
+				d="M12.2848 18.9935C12.1567 19.0875 12.0373 19.1728 11.9282 19.2493C11.8118 19.1721 11.6827 19.0833 11.5427 18.9832C10.8826 18.5109 10.0265 17.8176 9.18338 16.9529C7.45402 15.1792 6 12.9151 6 10.5C6 7.18629 8.68629 4.5 12 4.5C15.3137 4.5 18 7.18629 18 10.5C18 12.8892 16.4819 15.1468 14.6893 16.9393C13.8196 17.8091 12.9444 18.5099 12.2848 18.9935ZM19.5 10.5C19.5 16.5 12 21 12 21C11.625 21 4.5 16.5 4.5 10.5C4.5 6.35786 7.85786 3 12 3C16.1421 3 19.5 6.35786 19.5 10.5ZM13.5 10.5C13.5 11.3284 12.8284 12 12 12C11.1716 12 10.5 11.3284 10.5 10.5C10.5 9.67157 11.1716 9 12 9C12.8284 9 13.5 9.67157 13.5 10.5ZM15 10.5C15 12.1569 13.6569 13.5 12 13.5C10.3431 13.5 9 12.1569 9 10.5C9 8.84315 10.3431 7.5 12 7.5C13.6569 7.5 15 8.84315 15 10.5Z"
+				fill="#296718"
+			/>
+		</svg>
+	)
+}
+
 export const placeholder: FC<SVGProps<SVGSVGElement>> = (props) => {
 	const { className, strokeWidth, color, width, height, fill, ...rest } =
 		props
@@ -1231,6 +1283,7 @@ export const placeholder: FC<SVGProps<SVGSVGElement>> = (props) => {
 		></svg>
 	)
 }
+
 // xmlns="http://www.w3.org/2000/svg"
 // xmlns:xlink="http://www.w3.org/1999/xlink"
 // xml:space="preserve"
