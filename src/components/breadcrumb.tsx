@@ -4,27 +4,27 @@ import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { books, activities } from "@/lib/data"
 
+const pages: { [key: string]: string }[] = [
+	{ publications: "إصدارات" },
+	{ activities: "أنشطة" },
+	{ library: "المكتبة التخصصية" },
+]
 export default function Breadcrumb() {
 	const paths = usePathname()
 	const pathNames = paths.split("/").filter((path) => path)
 	pathNames.unshift("الرئيسية")
 
-	const pages: { [key: string]: string }[] = [
-		{ publications: "إصدارات" },
-		{ activities: "أنشطة" },
-	]
-
 	return (
 		<div className="w-full p-12">
 			<nav aria-label="breadcrumb" className="w-full flex justify-center">
-				<ol className="flex w-fit bg-slate-50 p-4 flex-wrap items-center rounded-2xl bg-blue-gray-50 bg-opacity-60 py-2 px-4">
+				<ol className="flex w-fit text-secondary bg-slate-50 p-4 flex-wrap items-center rounded-2xl bg-blue-gray-50 bg-opacity-60 py-2 px-4">
 					{pathNames.map((path, index) => (
 						<li
 							key={index}
-							className={`flex cursor-pointer items-center text-2xl leading-normal text-blue-gray-900 antialiased transition-colors duration-300 ${
+							className={`flex cursor-pointer items-center text-xl leading-normal antialiased duration-150 ${
 								index === pathNames.length - 1
 									? "hover:text-primary-300 "
-									: "hover:text-primary-300 opacity-60"
+									: "hover:text-primary-300 opacity-90"
 							}`}
 						>
 							<Link
@@ -46,7 +46,7 @@ export default function Breadcrumb() {
 								</span>
 							</Link>
 							{index !== pathNames.length - 1 && (
-								<span className="pointer-events-none mx-2 select-none text-sm font-normal leading-normal text-blue-gray-500 antialiased">
+								<span className="pointer-events-none mx-2 select-none text-md font-normal leading-normal text-blue-gray-500 antialiased">
 									/
 								</span>
 							)}

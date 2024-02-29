@@ -78,7 +78,7 @@ export default function Activities() {
 				<AnimatePresence mode="wait">
 					<motion.div
 						key={selectedTab ? selectedTab : "empty"}
-						initial={{ x: -10, opacity: 0 }}
+						initial={{ x: 10, opacity: 0 }}
 						animate={{ x: 0, opacity: 1 }}
 						exit={{ x: -10, opacity: 0 }}
 						transition={{ duration: 0.3 }}

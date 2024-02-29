@@ -7,6 +7,7 @@ import { Header, Footer } from "../components"
 
 const websiteFont = Noto_Naskh_Arabic({
 	subsets: ["arabic", "latin"],
+	variable: "--font-noto",
 })
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html suppressHydrationWarning lang="ar" dir="rtl">
-			<body className={websiteFont.className}>
+			<body className={`${websiteFont.className} --font-noto`}>
 				<Suspense fallback={<Loading />}>
 					<Header />
 					{children}

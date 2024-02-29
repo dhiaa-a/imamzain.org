@@ -134,7 +134,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 										</div>
 									</li>
 									<li>
-										<div className="flex gap-x-2">
+										<div className="flex gap-x-2 flex-nowrap text-nowrap">
 											<div>دار الطبع:</div>
 											<div>{book.printHouse || ""}</div>
 										</div>
