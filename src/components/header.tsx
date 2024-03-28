@@ -1,28 +1,42 @@
 "use client"
 
-import { Separator } from "@/components/ui/separator"
-import Image from "next/image"
-import Link from "next/link"
-import Socials from "./ui/socials"
-
-import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
+import Image from "next/image"
+import Link from "next/link"
+import { AnimatePresence, motion } from "framer-motion"
 import clsx from "clsx"
 import { LanguagesIcon, PhoneIcon, SearchIcon } from "./icons"
+import Socials from "./ui/socials"
+import { Separator } from "@/components/ui/separator"
 
-const links = [
-	{ href: "/imamzain", text: "الامام زين العابدين" },
-	{ href: "/library", text: "المكتبة التخصصية" },
-	{ href: "/", text: "الرئيسية", isMain: true },
-	{ href: "/publications", text: "الإصدارات" },
-	{ href: "/activities", text: "الانشطة" },
-	{ href: "/about", text: "حول المؤسسة" },
+const links: { href: string; label: string; content: JSX.Element }[] = [
+	{
+		href: "/imamzain",
+		label: "الامام زين العابدين",
+		content: <div>hello</div>,
+	},
+	{ href: "/library", label: "المكتبة التخصصية", content: <div>hello</div> },
+	{ href: "/", label: "الرئيسية", content: <div>hello</div> },
+	{ href: "/publications", label: "الإصدارات", content: <div>hello</div> },
+	{ href: "/activities", label: "الانشطة", content: <div>hello</div> },
+	{ href: "/about", label: "حول المؤسسة", content: <div>hello</div> },
 ]
 
+type HeaderState = {
+	open: boolean
+	initiator: string | null
+	viewContent: string | null
+}
+
 export default function Header() {
-	const [activeTab, setActiveTab] = useState<string | false>(false)
+	const [headerState, setHeaderState] = useState<HeaderState>({
+		open: false,
+		initiator: null,
+		viewContent: null,
+	})
 	const pathname = usePathname()
+
 	return (
 		<>
 			<div className="w-full p-4 bg-white z-50">
@@ -55,34 +69,55 @@ export default function Header() {
 					</div>
 				</div>
 			</div>
-			<div className="flex sticky z-50 top-0 justify-center items-center gap-10 bg-white p-6 shadow-mdhover:text-secondary border-b-2 border-b-primary-500">
-				{links.map((link, index) => (
-					<Link
-						key={index}
-						className={clsx(
-							"hover:text-secondary-400 duration-300 relative px-2 py-1",
-							{
-								"text-primary": pathname === link.href,
-								"text-3xl": link.isMain,
-							},
-						)}
-						href={link.href}
-					>
-						{link.text}
-					</Link>
-				))}
+			<div className="flex group flex-col sticky z-50 top-0 bg-white shadow-md ">
+				<div className="flex items-center justify-center gap-10 p-6 hover:text-secondary">
+					{links.map((link, index) => (
+						<Link
+							key={index}
+							onMouseEnter={() =>
+								!headerState.open &&
+								setHeaderState({
+									open: true,
+									initiator: link.label,
+									viewContent: link.label,
+								})
+							}
+							className={clsx(
+								"hover:text-secondary-400 duration-300 px-2 py-1",
+								{
+									"text-primary text-2xl":
+										pathname === link.href,
+									"text-3xl": pathname == link.href,
+								},
+							)}
+							href={link.href}
+						>
+							{link.label}
+						</Link>
+					))}
+				</div>
+				{headerState.open && (
+					<AnimatePresence mode="wait">
+						<motion.div
+							onMouseLeave={() =>
+								setHeaderState({
+									open: false,
+									initiator: null,
+									viewContent: null,
+								})
+							}
+							key={headerState.initiator ?? "empty"}
+							initial={{ height: 0 }}
+							animate={{ height: 300 }}
+							exit={{ height: 0 }}
+							className="w-full absolute overflow-hidden flex items-center justify-center"
+						>
+							{/* Content for mega menu */}
+							<div>Menu Content</div>
+						</motion.div>
+					</AnimatePresence>
+				)}
 			</div>
-			{activeTab && (
-				<AnimatePresence mode="wait">
-					<motion.div
-						key={activeTab ? activeTab : "empty"}
-						initial={{ height: 0 }}
-						animate={{ height: 300 }}
-						exit={{ height: 0 }}
-						className="flex shadow-xl"
-					></motion.div>
-				</AnimatePresence>
-			)}
 		</>
 	)
 }

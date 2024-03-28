@@ -1,4 +1,4 @@
-import { Book } from "./definitions"
+import { Book, BlogPost } from "./definitions"
 
 enum CategoryTypes {
 	Book = "كتاب",
@@ -363,4 +363,73 @@ export const books: Book[] = [
 	},
 ]
 
-export const activities = [{}]
+export const blogPosts: BlogPost[] = [
+	{
+		id: 1,
+		thumbnail: "/images/activities/activity.png",
+		title: "ندوة عن تحليل النصوص الدينية للإمام زين العابدين",
+		slug: "analysing-imam-zain-alabdeen-religious-manuscripts-conference",
+		subtitle:
+			"نظمت الجلسة العلمية الأولى لتحليل النصوص الدينية بالتعاون مع جامعة المدينة.",
+		content: "",
+		date: "١٤ يناير ٢٠٢٣",
+	},
+	{
+		id: 2,
+		thumbnail: "/images/activities/activity.png",
+		title: "ورشة عمل حول تطوير المناهج التربوية للشباب",
+		slug: "workshop-for-improving-the-academic-curriculum-for-youth",
+		subtitle:
+			"انطلقت الورشة بحضور نخبة من الباحثين والمختصين في مجال التعليم والتربية.",
+		content: "",
+		date: "٢٥ فبراير ٢٠٢٣",
+	},
+	{
+		id: 3,
+		thumbnail: "/images/activities/activity.png",
+		title: "إطلاق مشروع جديد لدعم الأيتام",
+		slug: "new-project-for-orphans",
+		subtitle:
+			"تم افتتاح مركز الأيتام لتقديم الرعاية والدعم الشامل للأطفال الأيتام.",
+		content: "",
+		date: "١٥ مارس ٢٠٢٣",
+	},
+	{
+		id: 4,
+		thumbnail: "/images/activities/activity.png",
+		title: "ورشة عمل حول البحث العلمي في العلوم الإنسانية",
+		slug: "scentific-research-in-human-science-workshop",
+		subtitle: "تم تنظيم الورشة بالتعاون مع كلية الآداب بجامعة القاهرة.",
+		content: "",
+		date: "٢٥ أبريل ٢٠٢٣",
+	},
+	{
+		id: 5,
+		thumbnail: "/images/activities/activity.png",
+		title: "سلسلة ندوات عن الفقه الإسلامي المعاصر",
+		slug: "conference-streak-on-modern-fiqah",
+		subtitle:
+			"تم تنظيم الندوات بالشراكة مع مركز البحوث الإسلامية بجامعة القدس.",
+		content: "",
+		date: "١٥ مايو ٢٠٢٣",
+	},
+	{
+		id: 6,
+		thumbnail: "/images/activities/activity.png",
+		title: "ورشة عمل حول البحث العلمي في العلوم الإنسانية",
+		slug: "scentific-research-in-human-science-workshop",
+		subtitle: "تم تنظيم الورشة بالتعاون مع كلية الآداب بجامعة القاهرة.",
+		content: "",
+		date: "٢٥ أبريل ٢٠٢٣",
+	},
+	{
+		id: 7,
+		thumbnail: "/images/activities/activity.png",
+		title: "سلسلة ندوات عن الفقه الإسلامي المعاصر",
+		slug: "conference-streak-on-modern-fiqah",
+		subtitle:
+			"تم تنظيم الندوات بالشراكة مع مركز البحوث الإسلامية بجامعة القدس.",
+		content: "",
+		date: "١٥ مايو ٢٠٢٣",
+	},
+]

@@ -1,14 +1,5 @@
 import type { Metadata } from "next"
-import { Noto_Naskh_Arabic } from "next/font/google"
-import "./globals.css"
-import { Suspense } from "react"
-import Loading from "./loading"
-import Template from "./template"
-
-const websiteFont = Noto_Naskh_Arabic({
-	subsets: ["arabic", "latin"],
-	variable: "--font-noto",
-})
+import { Footer, Header } from "@/components"
 
 export const metadata: Metadata = {
 	title: "مؤسسة الامام زين العابدين",
@@ -22,12 +13,10 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html suppressHydrationWarning lang="ar" dir="rtl">
-			<body className={`${websiteFont.className} --font-noto`}>
-				<Suspense fallback={<Loading />}>
-					<Template>{children}</Template>
-				</Suspense>
-			</body>
-		</html>
+		<>
+			<Header />
+			{children}
+			<Footer />
+		</>
 	)
 }

@@ -3,7 +3,7 @@
 import Image from "next/image"
 
 import { AnimatePresence, motion, useScroll } from "framer-motion"
-import { Separator } from "../../components/ui/separator"
+import { Separator } from "@/components/ui/separator"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -35,7 +35,7 @@ import {
 	PaperAndPen,
 	Pray,
 	Scholar,
-} from "../../components/icons"
+} from "../../../components/icons"
 import { useState } from "react"
 import { PhoneIcon, EmailIcon, LocationIcon } from "@/components/icons"
 
@@ -105,97 +105,49 @@ const features = [
 		icon: <Manuscript />,
 		title: "تراث الإمام السجاد",
 		desc: "حياة الامام السجاد عليه السلام وتراثه الروائي والقرآني والعقائدي تحقيقا وتأليفا",
-		image: (
-			<img
-				src="https://placehold.co/600x600?text=1"
-				alt="feature img"
-				className="rounded-2xl"
-			/>
-		),
+		image: "https://placehold.co/600x600?text=1",
 	},
 	{
 		icon: <Pray />,
 		title: "المجلة السجادية",
 		desc: "الاهتمام البالغ بالصحيفة السجادية ورسالة الحقوق - على وجه الخصوص - بحثا ودراسة وتفعيلها اجتماعيا وأكاديميا",
-		image: (
-			<img
-				src="https://placehold.co/600x600?text=2"
-				alt="feature img"
-				className="rounded-2xl"
-			/>
-		),
+		image: "https://placehold.co/600x600?text=2",
 	},
 	{
 		icon: <Kaaba />,
 		title: "الحفاظ على الهوية الدينية",
 		desc: "الدراسة والتنقيب عن اصحاب الإمام الميامين وتوضيح دورهم في حفظ الهوية الدينية",
-		image: (
-			<img
-				src="https://placehold.co/600x600?text=3"
-				alt="feature img"
-				className="rounded-2xl"
-			/>
-		),
+		image: "https://placehold.co/600x600?text=3",
 	},
 	{
 		icon: <Madinah />,
 		title: "المدينة المنورة - بذرة التَشَيُّع",
 		desc: "بيان واقع المدينة المنورة كونها منطلقا للنواة الاولى للتشيع ومهد الفكر الاسلامي الاصيل",
-		image: (
-			<img
-				src="https://placehold.co/600x600?text=4"
-				alt="feature img"
-				className="rounded-2xl"
-			/>
-		),
+		image: "https://placehold.co/600x600?text=4",
 	},
 	{
 		icon: <Scholar />,
 		title: "علماء الشيعة",
 		desc: " متابعة حياة علماء الشيعة في المدينة المنورة وما جاورها، في غاية نشر مساهماتهم واهميتهم في تاريخ نشر علوم السجاد (ع)",
-		image: (
-			<img
-				src="https://placehold.co/600x600?text=5"
-				alt="feature img"
-				className="rounded-2xl"
-			/>
-		),
+		image: "https://placehold.co/600x600?text=5",
 	},
 	{
 		icon: <PaperAndPen />,
 		title: "ببلوغرافيا",
 		desc: "صنع فهارس شاملة للكتب المطبوعة والمخطوطة وتوفيرها للعامة",
-		image: (
-			<img
-				src="https://placehold.co/600x600?text=6"
-				alt="feature img"
-				className="rounded-2xl"
-			/>
-		),
+		image: "https://placehold.co/600x600?text=6",
 	},
 	{
 		icon: <PaperAndPen />,
 		title: "تصنيف المخطوطات",
 		desc: "القيام بالبحث، والتحرير، والنشر للمخطوطات الحجرية وزيادة مستوى الوصولية اليها",
-		image: (
-			<img
-				src="https://placehold.co/600x600?text=7"
-				alt="feature img"
-				className="rounded-2xl"
-			/>
-		),
+		image: "https://placehold.co/600x600?text=7",
 	},
 	{
 		icon: <LibraryColored />,
 		title: "المكتبة التخصصية",
 		desc: "انشاء وتنمية مكتبة تخصصية في التراث المخطوط للإمام السجاد عليه السلام",
-		image: (
-			<img
-				src="https://placehold.co/600x600?text=8"
-				alt="feature img"
-				className="rounded-2xl"
-			/>
-		),
+		image: "https://placehold.co/600x600?text=8",
 	},
 ]
 
@@ -386,7 +338,13 @@ export default function About() {
 							exit={{ opacity: 0, y: -30 }}
 							transition={{ delay: 1, duration: 0.5 }}
 						>
-							{activeFeature ? activeFeature.image : null}
+							{activeFeature ? (
+								<img
+									src={activeFeature.image}
+									alt="feature img"
+									className="rounded-2xl"
+								/>
+							) : null}
 						</motion.div>
 					</AnimatePresence>
 				</div>

@@ -1,7 +1,6 @@
 "use client"
 
 import { Button } from "./ui/button"
-import { Badge } from "./ui/badge"
 import Link from "next/link"
 import {
 	Carousel,
@@ -18,12 +17,13 @@ import {
 import { useRef, useState } from "react"
 import Image from "next/image"
 import clsx from "clsx"
+import { BlogPost } from "@/lib/definitions"
+
+import { blogPosts } from "@/lib/data"
 
 export default function Activities() {
 	const carouselPreviousRef = useRef<HTMLButtonElement | null>(null)
 	const carouselNextRef = useRef<HTMLButtonElement | null>(null)
-
-	const activities = Array.from({ length: 5 })
 	const [selected, setSelected] = useState(2)
 
 	return (
@@ -92,16 +92,16 @@ export default function Activities() {
 				</div>
 			</article>
 			<Carousel
-				opts={{ startIndex: activities.length - 1, dragFree: false }}
+				opts={{ startIndex: blogPosts.length - 1, dragFree: false }}
 				className="w-3/4 mx-auto"
 			>
 				<CarouselContent className="-ml-1 flex-row-reverse">
-					{activities.map((_, index) => (
+					{blogPosts.map((blogPost, index) => (
 						<CarouselItem
 							key={index}
 							className="md:basis-1/2 lg:basis-1/4 p-4"
 						>
-							<ActivityCard />
+							<BigActivityCard blogPost={blogPost} />
 						</CarouselItem>
 					))}
 				</CarouselContent>
@@ -115,61 +115,40 @@ export default function Activities() {
 	)
 }
 
-const ActivityCard = () => {
+export const BigActivityCard = ({ blogPost }: { blogPost: BlogPost }) => {
 	return (
-		<Link
-			href="#"
-			className="block rounded-lg shadow-md shadow-slate-200 hover:shadow-slate-300 duration-300 hover:-translate-y-2 hover:shadow-lg"
-		>
+		<Link href={blogPost.slug} className="block">
 			<Image
-				width={300}
-				height={300}
+				width={150}
+				height={150}
 				alt="activity"
-				src="/images/activities/activity.png"
-				className="h-56 w-full rounded-t-md object-cover"
+				src={blogPost.thumbnail}
+				className="h-full w-full object-cover"
 			/>
-			<div className="mt-2 mr-2 p-4">
+			<div className="mt-8">
 				<dl>
-					<div>
-						<dt className="sr-only">الصنف</dt>
-						<dd className="text-sm text-primary">ندوات</dd>
-					</div>
-					<div>
-						<dt className="sr-only">العنوان</dt>
-						<dd className="font-medium my-2">
-							أثر الصحيفة السجادية في الفكر الاسلامي الحديث
+					<div className="my-2">
+						<dt className="sr-only">وقت القراءة</dt>
+						<dd className="text-sm text-slate-600">
+							{blogPost.content.length} دقائق من القراءة
 						</dd>
 					</div>
-					<div>
+					<div className="my-2">
+						<dt className="sr-only">العنوان</dt>
+						<dd className="font-bold text-xl">{blogPost.title}</dd>
+					</div>
+					<div className="my-2">
 						<dt className="sr-only">ملخص</dt>
-						<dd className="text-xs text-slate-500">
-							<p className="line-clamp-2">
-								اقامت مؤسسة الامام زين العابدين (ع) مؤتمرا
-								بالعنوان المذكور واستضافت السيد احمد الاشكوري
-								للمشاركة في اللجنة التحكيمية
+						<dd className="text-medium text-slate-500">
+							<p
+								className="line-clamp-2
+							"
+							>
+								{blogPost.subtitle}
 							</p>
 						</dd>
 					</div>
 				</dl>
-				<div className="mt-6 flex items-center gap-8 text-xs justify-between">
-					<div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
-						<div className="mt-1.5 sm:mt-0">
-							<Badge
-								variant="secondary"
-								className="font-light py-2 px-3 rounded-full"
-							>
-								قراءة: 3 دقائق
-							</Badge>
-						</div>
-					</div>
-					<div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
-						<div className="mt-1.5 sm:mt-0">
-							<p className="text-gray-500 text-sm tracking-wide">
-								21 جمادى الآخرة 1445هـ
-							</p>
-						</div>
-					</div>
-				</div>
 			</div>
 		</Link>
 	)

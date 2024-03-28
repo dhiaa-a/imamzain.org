@@ -49,10 +49,12 @@ export type Book = {
 	availableLanguages: string[]
 }
 
-export type Activity = {
+export type BlogPost = {
 	id: number
+	slug: string
 	thumbnail: string
 	title: string
+	subtitle: string
 	content: string
 	date: string
 }

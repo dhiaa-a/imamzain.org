@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import Breadcrumb from "../../components/breadcrumb"
+import Breadcrumb from "@/components/breadcrumb"
 
 export const metadata: Metadata = {
 	title: "",
@@ -15,10 +15,5 @@ export default function PublicationsLayout({
 }: Readonly<{
 	children: React.ReactNode
 }>) {
-	return (
-		<div className={websiteFont.className}>
-			<Breadcrumb />
-			{children}
-		</div>
-	)
+	return <div className={websiteFont.className}>{children}</div>
 }

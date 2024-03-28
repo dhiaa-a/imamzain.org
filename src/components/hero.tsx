@@ -6,17 +6,17 @@ const mainText =
 
 const Hero = () => {
 	return (
-		<div className="overflow-hidden relative h-[80vh] scroll-smooth bg-slate-100 flex flex-col items-center justify-center p-5 mx-auto sm:px-28">
-			{/* silly divs for aesthetics */}
+		<div className="overflow-hidden relative min-h-[80vh] bg-slate-100 flex flex-col items-center justify-center p-5 mx-auto sm:px-28">
+			{/* Silly divs for aesthetics */}
 			<div className="invisible md:visible absolute rounded-full border-[8px] border-secondary -right-52 top-44 w-96 h-96"></div>
-			<div className="invisible md:visible absolute rounded-full  bg-primary-400 -left-44 -bottom-32 w-96 h-96"></div>
+			<div className="invisible md:visible absolute rounded-full bg-primary-400 -left-44 -bottom-32 w-96 h-96"></div>
 			<div className="invisible md:visible absolute left-40 top-32">
 				<div className="grid grid-cols-7 gap-6">
 					{[...Array.from({ length: 63 })].map((_, i) => (
 						<div
 							key={i}
 							className="w-1 h-1 rounded-full bg-primary-400"
-						/>
+						></div>
 					))}
 				</div>
 			</div>
@@ -44,7 +44,7 @@ const Hero = () => {
 				<p className="text-3xl font-bold my-8">
 					تعرف على الامام زين العابدين (ع)
 				</p>
-				<div className="flex gap-12 font-extralight">
+				<div className="flex flex-col sm:flex-row gap-4 sm:gap-12 font-extralight">
 					<Link
 						href="#"
 						className="bg-transparent hover:scale-105 duration-300 sm:text-lg text-xs font-bold py-2.5 px-6 rounded-full inline-flex items-center"
