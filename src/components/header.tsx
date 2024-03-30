@@ -108,7 +108,7 @@ export default function Header() {
 							}
 							key={headerState.initiator ?? "empty"}
 							initial={{ height: 0 }}
-							animate={{ height: 300 }}
+							animate={{ height: 0 }}
 							exit={{ height: 0 }}
 							className="w-full absolute overflow-hidden flex items-center justify-center"
 						>
