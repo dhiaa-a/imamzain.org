@@ -17,9 +17,9 @@ import {
 import { useRef, useState } from "react"
 import Image from "next/image"
 import clsx from "clsx"
-import { BlogPost } from "@/lib/definitions"
+import { BlogPost } from "@/utils/definitions"
 
-import { blogPosts } from "@/lib/data"
+import { blogPosts } from "@/utils/data"
 
 export default function Activities() {
 	const carouselPreviousRef = useRef<HTMLButtonElement | null>(null)

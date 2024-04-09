@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
-import { Footer, Header } from "@/components"
+import Footer from "@/components/footer"
+import Header from "@/components/header"
 
 export const metadata: Metadata = {
 	title: "مؤسسة الامام زين العابدين",

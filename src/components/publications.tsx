@@ -6,8 +6,8 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 
-import type { Book } from "@/lib/definitions"
-import { books, categories } from "@/lib/data"
+import type { Book } from "@/utils/definitions"
+import { books, categories } from "@/utils/data"
 import Link from "next/link"
 
 const Publications = () => {

@@ -1,13 +1,9 @@
 import type { Metadata } from "next"
 import { Noto_Naskh_Arabic } from "next/font/google"
 import "./globals.css"
-import { Suspense } from "react"
-import Loading from "./loading"
-import Template from "./template"
 
 const websiteFont = Noto_Naskh_Arabic({
 	subsets: ["arabic", "latin"],
-	variable: "--font-noto",
 })
 
 export const metadata: Metadata = {
@@ -22,12 +18,8 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html suppressHydrationWarning lang="ar" dir="rtl">
-			<body className={`${websiteFont.className} --font-noto`}>
-				<Suspense fallback={<Loading />}>
-					<Template>{children}</Template>
-				</Suspense>
-			</body>
+		<html lang="ar" dir="rtl">
+			<body className={websiteFont.className}>{children}</body>
 		</html>
 	)
 }

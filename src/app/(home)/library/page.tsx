@@ -11,7 +11,7 @@ import {
 import { DownloadIcon, ListBulletIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 
-import { books, categories } from "@/lib/data"
+import { books, categories } from "@/utils/data"
 
 const tableFields = [
 	"الترقيم",

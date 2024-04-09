@@ -1,4 +1,4 @@
-import { BlogPost } from "@/lib/definitions"
+import { BlogPost } from "@/utils/definitions"
 
 export default function CategoryView({
 	title,

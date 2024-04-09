@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { books } from "@/lib/data"
+import { books } from "@/utils/data"
 
 const pages: { [key: string]: string }[] = [
 	{ publications: "إصدارات" },

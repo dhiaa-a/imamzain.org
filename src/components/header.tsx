@@ -1,47 +1,33 @@
 "use client"
 
-import { useState } from "react"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-import { AnimatePresence, motion } from "framer-motion"
 import clsx from "clsx"
 import { LanguagesIcon, PhoneIcon, SearchIcon } from "./icons"
 import Socials from "./ui/socials"
 import { Separator } from "@/components/ui/separator"
 
-const links: { href: string; label: string; content: JSX.Element }[] = [
+const links: { href: string; label: string }[] = [
 	{
 		href: "/imamzain",
 		label: "الامام زين العابدين",
-		content: <div>hello</div>,
 	},
-	{ href: "/library", label: "المكتبة التخصصية", content: <div>hello</div> },
-	{ href: "/", label: "الرئيسية", content: <div>hello</div> },
-	{ href: "/publications", label: "الإصدارات", content: <div>hello</div> },
-	{ href: "/activities", label: "الانشطة", content: <div>hello</div> },
-	{ href: "/about", label: "حول المؤسسة", content: <div>hello</div> },
+	{ href: "/library", label: "المكتبة التخصصية" },
+	{ href: "/", label: "الرئيسية" },
+	{ href: "/publications", label: "الإصدارات" },
+	{ href: "/activities", label: "الانشطة" },
+	{ href: "/about", label: "حول المؤسسة" },
 ]
 
-type HeaderState = {
-	open: boolean
-	initiator: string | null
-	viewContent: string | null
-}
-
 export default function Header() {
-	const [headerState, setHeaderState] = useState<HeaderState>({
-		open: false,
-		initiator: null,
-		viewContent: null,
-	})
 	const pathname = usePathname()
 
 	return (
 		<>
 			<div className="w-full p-4 bg-white z-50">
-				<div className="flex justify-around items-center">
-					<div className="flex flex-col gap-4 items-center flex-none w-1/3 justify-center">
+				<div className="flex justify-around items-center flex-wrap">
+					<div className="flex flex-col gap-4 items-center flex-none w-full md:w-1/3 justify-center mb-4 md:mb-0">
 						<div className="flex gap-4 items-center">
 							<p dir="ltr" className="">
 								+964 782 943 9996
@@ -50,7 +36,7 @@ export default function Header() {
 						</div>
 						<Socials />
 					</div>
-					<div className="flex w-1/3 justify-center">
+					<div className="flex w-full md:w-1/3 justify-center">
 						<Image
 							src="/logo.png"
 							width={400}
@@ -59,7 +45,7 @@ export default function Header() {
 							alt="Logo"
 						/>
 					</div>
-					<div className="flex justify-center gap-4 items-center w-1/3 sticky">
+					<div className="flex justify-center gap-4 items-center w-full md:w-1/3 sticky">
 						<SearchIcon className="duration-300 hover:scale-105 hover:-translate-y-2 cursor-pointer" />
 						<Separator
 							orientation="vertical"
@@ -69,21 +55,13 @@ export default function Header() {
 					</div>
 				</div>
 			</div>
-			<div className="flex group flex-col sticky z-50 top-0 bg-white shadow-md ">
+			<div className="flex group flex-col sticky z-50 top-0 bg-white shadow-md">
 				<div className="flex items-center justify-center gap-10 p-6 hover:text-secondary">
 					{links.map((link, index) => (
 						<Link
 							key={index}
-							onMouseEnter={() =>
-								!headerState.open &&
-								setHeaderState({
-									open: true,
-									initiator: link.label,
-									viewContent: link.label,
-								})
-							}
 							className={clsx(
-								"hover:text-secondary-400 duration-300 px-2 py-1",
+								"hover:text-secondary-400 duration-300 px-2 py-1 lg",
 								{
 									"text-primary text-2xl":
 										pathname === link.href,
@@ -96,27 +74,6 @@ export default function Header() {
 						</Link>
 					))}
 				</div>
-				{headerState.open && (
-					<AnimatePresence mode="wait">
-						<motion.div
-							onMouseLeave={() =>
-								setHeaderState({
-									open: false,
-									initiator: null,
-									viewContent: null,
-								})
-							}
-							key={headerState.initiator ?? "empty"}
-							initial={{ height: 0 }}
-							animate={{ height: 0 }}
-							exit={{ height: 0 }}
-							className="w-full absolute overflow-hidden flex items-center justify-center"
-						>
-							{/* Content for mega menu */}
-							<div>Menu Content</div>
-						</motion.div>
-					</AnimatePresence>
-				)}
 			</div>
 		</>
 	)

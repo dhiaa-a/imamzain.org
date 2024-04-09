@@ -12,7 +12,7 @@ import { BigActivityCard } from "@/components/activities"
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons"
 import { useRef } from "react"
 
-import { BlogPost } from "@/lib/definitions"
+import { BlogPost } from "@/utils/definitions"
 export default function LatestNews({ data }: { data: BlogPost[] }) {
 	const slidePrevButton = useRef<HTMLButtonElement | null>(null)
 	const slideNextButton = useRef<HTMLButtonElement | null>(null)

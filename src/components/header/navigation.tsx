@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/utils/utils"
 import {
 	NavigationMenu,
 	NavigationMenuContent,
@@ -93,7 +93,7 @@ const ListItem = React.forwardRef<
 ListItem.displayName = "ListItem"
 
 const NavMenuContent = () => (
-	<div className="flex shadow-xl bg-white w-full flex-col">
+	<div className="flex shadow-xl bg-white flex-col">
 		<div className="flex">
 			<div className="flex justify-around w-7/12 p-10">
 				<div className="flex flex-col gap-2">

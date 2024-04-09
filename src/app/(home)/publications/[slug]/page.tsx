@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useState, useEffect } from "react"
 
-import { books } from "@/lib/data"
+import { books } from "@/utils/data"
 
 import { DownloadIcon } from "@radix-ui/react-icons"
 import { Button } from "@/components/ui/button"

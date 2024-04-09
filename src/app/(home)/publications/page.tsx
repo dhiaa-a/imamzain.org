@@ -5,7 +5,7 @@ import { PublicationShowcaseCard } from "@/components/publications"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
-import { books, categories } from "@/lib/data"
+import { books, categories } from "@/utils/data"
 import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 

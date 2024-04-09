@@ -1,6 +1,6 @@
 import Link from "next/link"
 import LatestNews from "./_components/LatestContainer"
-import { blogPosts } from "@/lib/data"
+import { blogPosts } from "@/utils/data"
 
 export default function Activities() {
 	return (
