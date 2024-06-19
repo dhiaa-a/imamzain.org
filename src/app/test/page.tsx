@@ -1,14 +1,607 @@
 "use client"
-import Navigation from "@/components/header/navigation"
-import { LanguagesIcon, Manuscript } from "@/components/icons"
-import Socials from "@/components/ui/socials"
-import Link from "next/link"
-export default function Test() {
+
+import { LanguagesIcon, Placehold, SearchIcon } from "@/components/icons"
+import Image from "next/image"
+import { useState } from "react"
+
+export default function Page() {
+	const [hoveredIndex, sethoveredIndex] = useState<number | null>(null)
+	const [menuOpen, setmenuOpen] = useState(false)
 	return (
-		<div className="h-screen flex flex-col justify-start items-end">
-			<div>
-				<Navigation />
+		<>
+			{/* <div className="max-w-screen-2xl flex justify-between p-6 m-auto items-center">
+				<div className="flex justify-between gap-8 items-center">
+					<Image
+						src={`/logo_no_title.png`}
+						alt="logo"
+						width={150}
+						height={150}
+						className="h-16 w-auto"
+					/>
+					<ul className="flex w-full justify-around">
+						{[
+							"الامام زين العابدين",
+							"انشطة المؤسسة",
+							"اصدارات المؤسسة",
+							"المكتبة التخصصية",
+							"حول المؤسسة",
+						].map((item, index) => (
+							<li key={index} className="px-4 py-3">
+								<div
+									className={`flex flex-col items-center gap-2 duration-300 cursor-pointer ${
+										hoveredIndex == index &&
+										"text-primary-500"
+									} `}
+									onMouseEnter={() => sethoveredIndex(index)}
+									onMouseLeave={() => sethoveredIndex(null)}
+								>
+									{item}
+									<div
+										className={`h-1 w-1 bg-primary opacity-0 rounded-full duration-300 ${
+											hoveredIndex == index &&
+											"opacity-100"
+										} `}
+									/>
+								</div>
+								<div
+									onMouseEnter={() => setmenuOpen(true)}
+									onMouseLeave={() => {
+										setmenuOpen(false)
+										sethoveredIndex(null)
+									}}
+									className={`absolute top-24 right-12 w-[90vw] h-96 border-2 bg-white border-primary-200 shadow-md rounded-md duration-300 -z-50 opacity-0 ${
+										hoveredIndex == index &&
+										"z-50 opacity-100"
+									}`}
+								/>
+							</li>
+						))}
+					</ul>
+				</div>
+				<div className="flex justify-around gap-8">
+					<SearchIcon />
+					<LanguagesIcon />
+				</div>
 			</div>
-		</div>
+			<div className="w-full h-screen flex justify-center item-center">
+				hi
+			</div> */}
+			<div className="grid grid-cols-1 gap-2 lg:grid-cols-4 p-2">
+				{itemCodes.slice(1, 40).map((item) => (
+					<div
+						key={item}
+						className="bg-white shadow-md py-6 flex justify-around text-[6px] border-t-8 border-b-8 border-primary"
+					>
+						<div className="flex flex-col text-center gap-3 font-extralight  ustify-center items-center w-1/2">
+							<Image
+								src="/logo.png"
+								width={300}
+								height={300}
+								alt="logo"
+								className=" w-2/3"
+							/>
+							<p className="mx-2">
+								ممتلكات مؤسسة الإمام زين العابدين للبحوث
+								والدراسات - العتبة الحسينية المقدسة
+							</p>
+						</div>
+						<div className="min-h-full min-w-0.5 bg-slate-200 rounded-full" />
+						<div className="w-1/2 flex flex-col justify-center items-center">
+							<table className="text-[10px] text-center">
+								<tbody>
+									<tr>
+										<td className="px-1">الكود:</td>
+										<td className="px-1">{item}</td>
+									</tr>
+
+									<tr>
+										<td className="px-1">الوصف:</td>
+										<td className="px-1">1st deatil</td>
+									</tr>
+
+									<tr>
+										<td className="px-1">الشعبة:</td>
+										<td className="px-1">1st deatil</td>
+									</tr>
+
+									<tr>
+										<td className="px-1">تاريخ:</td>
+										<td className="px-1">1st deatil</td>
+									</tr>
+									<tr>
+										<td className="px-2">الطابق:</td>
+										<td className="px-2">1st deatil</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				))}
+			</div>
+		</>
 	)
 }
+
+const itemCodes: string[] = [
+	"ADM-FAN-010",
+	"ADM-FAN-0011",
+	"ADM-CIP-001",
+	"ADM-CIP-002",
+	"ADM-CHR-004",
+	"ADM-CHR-001",
+	"ADM-CHR-002",
+	"ADM-CHR-003",
+	"ADM-FLG-001",
+	"ADM-FLG-002",
+	"ADM-FLG-003",
+	"ADM-TBL-001",
+	"ADM-PPT-003",
+	"ADM-PPT-004",
+	"ADM-PPT-005",
+	"ADM-PPT-006",
+	"ADM-PPT-007",
+	"ADM-PPT-008",
+	"ADM-PPT-009",
+	"ADM-PPT-010",
+	"ADM-PPT-011",
+	"ADM-PPT-012",
+	"ADM-HWU-001",
+	"ADM-GBN-001",
+	"ADM-CRT-001",
+	"ADM-CRT-004",
+	"ADM-CAB-001",
+	"ADM-BMD-001",
+	"ADM-BVC-001",
+	"ADM-CCT-003",
+	"ADM-CCT-004",
+	"ADM-TNK-001",
+	"ADM-GBC-001",
+	"ADM-GNT-001",
+	"ADM-TCO-001",
+	"ADM-TCO-002",
+	"ADM-TCO-003",
+	"ADM-TCO-004",
+	"ADM-TCO-005",
+	"ADM-PPT-001",
+	"ADM-PPT-002",
+	"ADM-FCT-001",
+	"ADM-FCT-002",
+	"ADM-FCT-003",
+	"ADM-BRL-001",
+	"ADM-BRL-002",
+	"ADM-CCT-001",
+	"ADM-CCT-002",
+	"ADM-FAN-001",
+	"ADM-FAN-002",
+	"ADM-FAN-003",
+	"ADM-FAN-004",
+	"ADM-FAN-005",
+	"ADM-FAN-006",
+	"ADM-FAN-007",
+	"ADM-OHR-001",
+	"ADM-PST-001",
+	"ADM-PIN-001",
+	"EA-CHR-001",
+	"EA-CLR-003",
+	"EA-FEX-001",
+	"EA-GBN-001",
+	"EA-GBN-002",
+	"EA-LKR-002",
+	"EA-MON-002",
+	"EA-PPT-001",
+	"EA-SFA-002",
+	"EA-TBL-011",
+	"EA-TBL-012",
+	"EA-TBL-013",
+	"EA-TBL-014",
+	"EA-TBL-015",
+	"EA-TBL-016",
+	"ADM-CCT-005",
+	"EA-TBL-001",
+	"EA-TBL-002",
+	"EA-TBL-003",
+	"EA-TBL-004",
+	"EA-TBL-005",
+	"EA-TBL-006",
+	"EA-TBL-007",
+	"EA-TBL-008",
+	"EA-TBL-009",
+	"EA-TBL-010",
+	"ADM-OHR-002",
+	"ADM-CPT-001",
+	"ADM-PRT-002",
+	"ADM-PRT-003",
+	"ADM-SHC-003",
+	"ADM-SFS-001",
+	"ADM-SHC-001",
+	"ADM-SHC-002",
+	"REV-UPS-001",
+	"REV-FHO-001",
+	"REV-BBP-001",
+	"REV-ESC-001",
+	"REV-FAN-001",
+	"REV-CHR-020",
+	"REV-TBL-003",
+	"REV-TBL-004",
+	"REV-TBL-005",
+	"REV-PRT-001",
+	"REV-PRT-002",
+	"REV-PRT-003",
+	"REV-ROT-001",
+	"REV-GBM-001",
+	"REV-LAM-001",
+	"REV-SBM-001",
+	"REV-CMP-001",
+	"ADM-CCT-008",
+	"REV-EHD-001",
+	"REV-FAN-002",
+	"REV-FAN-003",
+	"REV-LBS-001",
+	"REV-LBS-002",
+	"REV-LBS-003",
+	"REV-LBS-004",
+	"REV-LBS-005",
+	"REV-LBS-006",
+	"REV-LBS-007",
+	"REV-LBS-008",
+	"REV-LKR-001",
+	"REV-PNT-001",
+	"REV-PNT-002",
+	"REV-PNT-003",
+	"REV-PNT-004",
+	"REV-PNT-005",
+	"REV-PNT-006",
+	"REV-PNT-007",
+	"REV-PNT-008",
+	"REV-PNT-009",
+	"REV-CNP-001",
+	"REV-CNP-002",
+	"REV-CHR-019",
+	"REV-CHR-001",
+	"REV-CHR-002",
+	"REV-CHR-003",
+	"REV-CHR-004",
+	"REV-CHR-005",
+	"REV-CHR-006",
+	"REV-CHR-007",
+	"REV-CHR-008",
+	"REV-CHR-009",
+	"REV-CHR-010",
+	"REV-CHR-011",
+	"REV-CHR-012",
+	"REV-CHR-013",
+	"REV-CHR-014",
+	"REV-CHR-015",
+	"REV-CHR-016",
+	"REV-CHR-017",
+	"REV-CHR-018",
+	"REV-FLG-001",
+	"REV-FLG-002",
+	"REV-TBL-001",
+	"REV-TBL-002",
+	"REV-PPT-001",
+	"REV-PPT-002",
+	"REV-PPT-003",
+	"REV-GBN-003",
+	"REV-ESL-001",
+	"REV-CRT-001",
+	"REV-CRT-002",
+	"REV-CRT-003",
+	"REV-CRT-004",
+	"REV-ACR-001",
+	"REV-CAB-001",
+	"REV-CMP-002",
+	"REV-EXC-001",
+	"REV-PFR-001",
+	"REV-PFR-002",
+	"ADM-CCT-006",
+	"ADM-CCT-007",
+	"ADM-VAC-001",
+	"ADM-FAN-009",
+	"ADM-PNT-002",
+	"ADM-GBT-001",
+	"REV-FEX-001",
+	"ADM-CHR-010",
+	"ADM-EVN-001",
+	"ADM-SNK-001",
+	"ADM-CRT-002",
+	"ADM-CRT-003",
+	"ADM-ACR-001",
+	"ADM-CAB-009",
+	"ADM-GBC-002",
+	"ADM-FRG-001",
+	"ADM-WCO-001",
+	"ADM-CCT-016",
+	"ADM-CCT-018",
+	"EA-CHR-009",
+	"EA-CMP-004",
+	"EA-CRT-009",
+	"EA-CRT-010",
+	"EA-FAN-005",
+	"EA-GBN-004",
+	"EA-LKR-004",
+	"EA-TBL-029",
+	"EA-ACR-001",
+	"ADM-CCT-012",
+	"EA-FAN-002",
+	"ADM-CCT-013",
+	"EA-CHR-006",
+	"EA-CHR-007",
+	"EA-CLR-001",
+	"EA-CMP-001",
+	"EA-CRT-001",
+	"EA-FAN-001",
+	"EA-LKR-001",
+	"EA-TBL-028",
+	"MPR-FAN-001",
+	"MPR-TBL-004",
+	"MPR-TBL-005",
+	"MPR-TBL-006",
+	"MPR-ACR-001",
+	"ADM-CCT-011",
+	"MPR-UPS-001",
+	"MPR-OHR-001",
+	"MPR-PNT-001",
+	"MPR-KBM-001",
+	"MPR-CHR-001",
+	"MPR-CHR-002",
+	"MPR-CHR-003",
+	"MPR-CAM-001",
+	"MPR-CJC-001",
+	"MPR-CSL-001",
+	"MPR-CMC-001",
+	"MPR-MON-001",
+	"MPR-CCR-001",
+	"MPR-GBN-003",
+	"MPR-TRI-001",
+	"MPR-CBP-001",
+	"MPR-CMP-006",
+	"MPR-CMP-007",
+	"MPR-CMP-008",
+	"MPR-EXC-003",
+	"MPR-CBY-001",
+	"MPR-CCE-001",
+	"MPR-FAN-002",
+	"MPR-CHR-001",
+	"MPR-CHR-002",
+	"MPR-CHR-003",
+	"MPR-TBL-001",
+	"MPR-TBL-002",
+	"MPR-TBL-003",
+	"MPR-GBN-001",
+	"MPR-GBN-002",
+	"MPR-CRT-001",
+	"MPR-ACR-002",
+	"MPR-CMP-001",
+	"MPR-CMP-002",
+	"MPR-CMP-003",
+	"MPR-EXC-001",
+	"ADM-CCT-009",
+	"MPR-CRT-003",
+	"MPR-FAN-003",
+	"MPR-CHR-005",
+	"MPR-CHR-004",
+	"MPR-CHR-006",
+	"MPR-TBL-007",
+	"MPR-TBL-008",
+	"MPR-GBN-004",
+	"MPR-CRT-002",
+	"MPR-ACR-003",
+	"MPR-CMP-004",
+	"MPR-CMP-005",
+	"MPR-EXC-002",
+	"ADM-CCT-014",
+	"EA-CHR-008",
+	"ADM-FAN-011",
+	"ADM-FAN-012",
+	"ADM-FAN-013",
+	"ADM-FAN-014",
+	"ADM-FAN-015",
+	"ADM-FAN-016",
+	"ADM-FAN-017",
+	"ADM-FAN-018",
+	"ADM-CCT-010",
+	"ADM-TBL-002",
+	"ADM-SHC-004",
+	"ADM-BRB-002",
+	"ADM-CMB-001",
+	"ADM-CAB-002",
+	"ADM-CAB-003",
+	"ADM-CAB-004",
+	"ADM-CAB-005",
+	"ADM-CAB-006",
+	"ADM-CAB-007",
+	"ADM-CAB-008",
+	"ADM-CAB-009",
+	"ADM-CAB-010",
+	"ADM-CAB-011",
+	"ADM-CAB-012",
+	"ADM-CAB-013",
+	"ADM-CAB-014",
+	"ADM-CAB-015",
+	"ADM-CAB-016",
+	"ADM-CAB-017",
+	"ADM-CAB-018",
+	"ADM-CAB-019",
+	"ADM-CAB-020",
+	"ADM-CAB-021",
+	"ADM-CAB-022",
+	"ADM-CAB-023",
+	"ADM-CAB-024",
+	"ADM-CAB-025",
+	"ADM-CAB-026",
+	"ADM-CAB-027",
+	"ADM-CAB-028",
+	"ADM-CAB-029",
+	"ADM-CAB-030",
+	"ADM-CAB-031",
+	"ADM-CAB-032",
+	"ADM-CAB-033",
+	"ADM-CAB-034",
+	"ADM-CAB-035",
+	"ADM-CAB-036",
+	"ADM-CAB-037",
+	"ADM-CAB-038",
+	"ADM-CAB-039",
+	"ADM-CAB-040",
+	"ADM-CAB-041",
+	"ADM-CAB-042",
+	"ADM-CAB-043",
+	"ADM-CAB-044",
+	"ADM-CAB-045",
+	"ADM-CAB-046",
+	"ADM-CAB-047",
+	"ADM-CAB-048",
+	"ADM-CAB-049",
+	"ADM-CAB-050",
+	"ADM-CAB-051",
+	"ADM-CAB-052",
+	"ADM-CAB-053",
+	"ADM-CAB-054",
+	"ADM-CAB-055",
+	"ADM-CAB-056",
+	"ADM-CAB-057",
+	"ADM-CAB-058",
+	"ADM-CAB-059",
+	"ADM-CAB-060",
+	"ADM-CAB-061",
+	"ADM-CAB-062",
+	"ADM-CAB-063",
+	"ADM-CAB-064",
+	"ADM-CAB-065",
+	"ADM-CAB-066",
+	"ADM-CAB-067",
+	"ADM-CAB-068",
+	"ADM-CAB-069",
+	"ADM-CAB-070",
+	"ADM-CAB-071",
+	"ADM-CAB-072",
+	"ADM-CAB-073",
+	"ADM-CAB-074",
+	"ADM-CAB-075",
+	"ADM-CAB-076",
+	"ADM-CAB-077",
+	"ADM-CAB-078",
+	"ADM-CAB-079",
+	"ADM-CAB-080",
+	"ADM-CAB-081",
+	"ADM-CAB-082",
+	"ADM-CAB-083",
+	"ADM-CAB-084",
+	"ADM-CAB-085",
+	"ADM-CAB-086",
+	"ADM-CAB-087",
+	"ADM-CAB-088",
+	"ADM-CAB-089",
+	"ADM-CAB-090",
+	"ADM-CAB-091",
+	"ADM-CAB-092",
+	"ADM-CAB-093",
+	"ADM-CAB-094",
+	"ADM-CAB-095",
+	"ADM-CAB-096",
+	"ADM-CAB-097",
+	"ADM-CAB-098",
+	"ADM-CAB-099",
+	"ADM-CAB-100",
+	"ADM-CAB-101",
+	"ADM-CAB-102",
+	"ADM-CAB-103",
+	"ADM-CAB-104",
+	"ADM-CAB-105",
+	"ADM-CAB-106",
+	"ADM-CAB-107",
+	"ADM-CAB-108",
+	"ADM-CAB-109",
+	"ADM-CAB-110",
+	"ADM-CAB-111",
+	"ADM-CAB-112",
+	"ADM-CAB-113",
+	"ADM-CAB-114",
+	"ADM-CAB-115",
+	"ADM-CAB-116",
+	"ADM-CAB-117",
+	"ADM-CAB-118",
+	"ADM-CAB-119",
+	"ADM-CAB-120",
+	"ADM-CAB-121",
+	"ADM-CAB-122",
+	"ADM-CAB-123",
+	"ADM-CAB-124",
+	"ADM-CAB-125",
+	"ADM-CAB-126",
+	"ADM-CAB-127",
+	"ADM-CAB-128",
+	"ADM-CAB-129",
+	"ADM-CAB-130",
+	"ADM-CAB-131",
+	"ADM-CAB-132",
+	"ADM-CAB-133",
+	"ADM-CAB-134",
+	"ADM-CAB-135",
+	"ADM-CAB-136",
+	"ADM-CAB-137",
+	"ADM-CAB-138",
+	"ADM-CAB-139",
+	"ADM-CAB-140",
+	"ADM-CAB-141",
+	"ADM-CAB-142",
+	"ADM-CAB-143",
+	"ADM-CAB-144",
+	"ADM-CAB-145",
+	"ADM-CAB-146",
+	"ADM-CAB-147",
+	"ADM-CAB-148",
+	"ADM-CAB-149",
+	"ADM-CAB-150",
+	"ADM-CAB-151",
+	"ADM-CAB-152",
+	"ADM-CAB-153",
+	"ADM-CAB-154",
+	"ADM-CAB-155",
+	"ADM-CAB-156",
+	"ADM-CAB-157",
+	"ADM-CAB-158",
+	"ADM-CAB-159",
+	"ADM-CAB-160",
+	"ADM-CAB-161",
+	"ADM-CAB-162",
+	"ADM-CAB-163",
+	"ADM-CAB-164",
+	"ADM-CAB-165",
+	"ADM-CAB-166",
+	"ADM-CAB-167",
+	"ADM-CAB-168",
+	"ADM-CAB-169",
+	"ADM-CAB-170",
+	"ADM-CAB-171",
+	"ADM-CAB-172",
+	"ADM-CAB-173",
+	"ADM-CAB-174",
+	"ADM-CAB-175",
+	"ADM-CAB-176",
+	"ADM-CAB-177",
+	"ADM-CAB-178",
+	"ADM-CAB-179",
+	"ADM-CAB-180",
+	"ADM-CAB-181",
+	"ADM-CAB-182",
+	"ADM-CAB-183",
+	"ADM-CAB-184",
+	"ADM-CAB-185",
+	"ADM-CAB-186",
+	"ADM-CAB-187",
+	"ADM-CAB-188",
+	"ADM-CAB-189",
+	"ADM-CAB-190",
+	"ADM-CAB-191",
+	"ADM-CAB-192",
+	"ADM-CAB-193",
+	"ADM-CAB-194",
+	"ADM-CAB-195",
+	"ADM-CAB-196",
+	"ADM-CAB-197",
+	"ADM-CAB-198",
+	"ADM-CAB-199",
+	"ADM-CAB-200",
+]

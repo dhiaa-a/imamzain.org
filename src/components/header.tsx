@@ -1,80 +1,184 @@
 "use client"
 
-import { usePathname } from "next/navigation"
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import clsx from "clsx"
-import { LanguagesIcon, PhoneIcon, SearchIcon } from "./icons"
-import Socials from "./ui/socials"
-import { Separator } from "@/components/ui/separator"
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover"
+import {
+	LanguagesIcon,
+	Manuscript,
+	SearchIcon,
+	MenuIcon,
+	CloseIcon,
+} from "./icons"
 
-const links: { href: string; label: string }[] = [
-	{
-		href: "/imamzain",
-		label: "الامام زين العابدين",
-	},
-	{ href: "/library", label: "المكتبة التخصصية" },
-	{ href: "/", label: "الرئيسية" },
-	{ href: "/publications", label: "الإصدارات" },
-	{ href: "/activities", label: "الانشطة" },
-	{ href: "/about", label: "حول المؤسسة" },
-]
+const MenuSection = ({
+	title,
+	children,
+}: {
+	title: string
+	children?: React.ReactNode
+}) => (
+	<div className="flex flex-col gap-2">
+		<h1 className="font-extralight text-2xl mb-2 border-b-[1px] border-slate-400 pb-4 pl-12">
+			<Link href="#">{title}</Link>
+		</h1>
+		{children}
+	</div>
+)
+
+const MenuItems = ({ items }: { items: string[] }) => (
+	<ul className="space-y-6">
+		{items.map((item, index) => (
+			<li key={index} className="text-slate-800">
+				<p className="font-bold inline-flex gap-2 text-md items-center">
+					<Manuscript width={16} height={16} />
+					{item}
+				</p>
+			</li>
+		))}
+	</ul>
+)
+
+const ContactSection = () => (
+	<div className="flex items-center text-sm justify-center gap-10 border-2 p-3">
+		<p>اتصل بنا عبر الرقم 134567890</p>
+		<div className="h-4 border-r-2 border-slate-700"></div>
+		<Link href="#"> حمل تطبيق الهاتف</Link>
+	</div>
+)
+
+const PopoverLink = ({ link }: { link: LinkType }) => (
+	<Link
+		href={link.href}
+		className="hover:text-primary-500 hover:drop-shadow-2xl shadow-primary-200 flex flex-col gap-2 justify-center items-center group duration-300"
+	>
+		{link.menu ? (
+			<Popover>
+				<PopoverTrigger>{link.label}</PopoverTrigger>
+				<PopoverContent className="p-0 mr-10 w-[80vw]">
+					{link.menu}
+				</PopoverContent>
+			</Popover>
+		) : (
+			link.label
+		)}
+		<div className="rounded-full w-1 h-1 bg-primary-500 opacity-0 group-hover:opacity-100 duration-300" />
+	</Link>
+)
 
 export default function Header() {
-	const pathname = usePathname()
+	const [menuOpen, setMenuOpen] = useState(false)
 
 	return (
-		<>
-			<div className="w-full p-4 bg-white z-50">
-				<div className="flex justify-around items-center flex-wrap">
-					<div className="flex flex-col gap-4 items-center flex-none w-full md:w-1/3 justify-center mb-4 md:mb-0">
-						<div className="flex gap-4 items-center">
-							<p dir="ltr" className="">
-								+964 782 943 9996
-							</p>
-							<PhoneIcon />
-						</div>
-						<Socials />
-					</div>
-					<div className="flex w-full md:w-1/3 justify-center">
-						<Image
-							src="/logo.png"
-							width={400}
-							height={400}
-							className="w-auto h-32"
-							alt="Logo"
-						/>
-					</div>
-					<div className="flex justify-center gap-4 items-center w-full md:w-1/3 sticky">
-						<SearchIcon className="duration-300 hover:scale-105 hover:-translate-y-2 cursor-pointer" />
-						<Separator
-							orientation="vertical"
-							className="h-8 bg-slate-500"
-						/>
-						<LanguagesIcon className="duration-300 hover:scale-105 hover:-translate-y-2 cursor-pointer" />
-					</div>
-				</div>
-			</div>
-			<div className="flex group flex-col sticky z-50 top-0 bg-white shadow-md">
-				<div className="flex items-center justify-center gap-10 p-6 hover:text-secondary">
-					{links.map((link, index) => (
-						<Link
-							key={index}
-							className={clsx(
-								"hover:text-secondary-400 duration-300 px-2 py-1 lg",
-								{
-									"text-primary text-2xl":
-										pathname === link.href,
-									"text-3xl": pathname == link.href,
-								},
-							)}
-							href={link.href}
-						>
-							{link.label}
-						</Link>
+		<div className="fixed w-full top-0 bg-gradient-to-b backdrop-opacity-0 from-neutral-50 to-transparent z-50 flex justify-between px-8 py-4 text-lg font-extralight items-center">
+			<div className="flex gap-8 items-center">
+				<Link href="/">
+					<Image
+						src="/logo_no_title.png"
+						alt="logo"
+						width={100}
+						height={100}
+						className="w-12"
+						priority
+					/>
+				</Link>
+				<div className=" hidden md:flex items-center gap-8 p-2 text-sm lg:text-base">
+					{links.map((link) => (
+						<PopoverLink key={link.label} link={link} />
 					))}
 				</div>
 			</div>
-		</>
+			<div className="hidden md:flex gap-10 items-center">
+				<LanguagesIcon className="cursor-pointer hover:drop-shadow-2xl" />
+				<SearchIcon className="cursor-pointer hover:drop-shadow-2xl" />
+			</div>
+			<div className="md:hidden flex items-center z-20">
+				<button
+					onMouseEnter={() => setMenuOpen(true)}
+					onMouseLeave={() => setMenuOpen(false)}
+				>
+					{menuOpen ? (
+						<CloseIcon className="w-6 h-6" />
+					) : (
+						<MenuIcon className="w-6 h-6" />
+					)}
+				</button>
+			</div>
+			{menuOpen && (
+				<div className="fixed inset-0 z-10 bg-white flex flex-col items-center gap-8 p-8 md:hidden">
+					{links.map((link) => (
+						<PopoverLink key={link.label} link={link} />
+					))}
+					<div className="flex gap-8 items-center">
+						<LanguagesIcon className="cursor-pointer hover:drop-shadow-2xl" />
+						<SearchIcon className="cursor-pointer hover:drop-shadow-2xl" />
+					</div>
+				</div>
+			)}
+		</div>
 	)
 }
+
+type LinkType = {
+	href: string
+	label: string
+	menu?: JSX.Element
+}
+
+const links: LinkType[] = [
+	{
+		href: "/imamzain",
+		label: "الامام زين العابدين",
+		menu: (
+			<div className="flex shadow-xl bg-white flex-col">
+				<div className="flex">
+					<div className="flex justify-around w-7/12 p-10">
+						<MenuSection title="حياته الكريمة" />
+						<MenuSection title="اثاره المباركة">
+							<MenuItems
+								items={[
+									"الصحيفة السجادية",
+									"الصحيفة الكاملة",
+									"ما الحقه الشيخ الحر العاملي",
+									"ما الحقه الميرزا عبد الله افندي",
+									"ما الحقه الميرزا حسين النوري",
+									"ما الحقه السيد محسن الامين العاملي",
+									"معجم الفاظ الصحيفة",
+									"المعجم الموضوعي لالفاظ الصحيفة",
+								]}
+							/>
+						</MenuSection>
+						<MenuSection title="صور">
+							<MenuItems
+								items={[
+									"البقيع",
+									"رسومات تعبيرية",
+									"مساهمات اخرى",
+								]}
+							/>
+						</MenuSection>
+						<MenuSection title="الامام في الادب">
+							<MenuItems
+								items={[
+									"تراثه في اللغة العربية",
+									"تراثه في ادب اللغات الاخرى",
+								]}
+							/>
+						</MenuSection>
+					</div>
+					<div className="flex w-5/12 border-r-2 bg-slate-100"></div>
+				</div>
+				<ContactSection />
+			</div>
+		),
+	},
+	{ href: "/activities", label: "الانشطة" },
+	{ href: "/publications", label: "الإصدارات" },
+	{ href: "/library", label: "المكتبة " },
+	{ href: "/about", label: "حول المؤسسة" },
+]

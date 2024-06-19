@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
-import { Noto_Naskh_Arabic } from "next/font/google"
+import { Amiri } from "next/font/google"
 import "./globals.css"
 
-const websiteFont = Noto_Naskh_Arabic({
+const websiteFont = Amiri({
+	weight: ["400", "700"],
 	subsets: ["arabic", "latin"],
 })
 
@@ -18,7 +19,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="ar" dir="rtl">
+		<html lang="ar" dir="rtl" className="scroll-smooth">
 			<body className={websiteFont.className}>{children}</body>
 		</html>
 	)

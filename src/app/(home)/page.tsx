@@ -1,13 +1,12 @@
-import Activities from "@/components/activities"
-import Publications from "@/components/publications"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowLeftIcon } from "@radix-ui/react-icons"
-import { CircleArrowLeft } from "@/components/icons"
+import { XIcon } from "@/components/icons"
+import { Badge } from "@/components/ui/badge"
+import { ChevronLeftIcon } from "@radix-ui/react-icons"
 
 const sections = [
 	{
-		imageUrl: "bg-[url(/images/sections/1.png)]",
+		imageUrl: "bg-[url(/images/sections/4.png)]",
 		gradientColor: "to-yellow-800",
 		title: "المكتبة التخصصية",
 		subtitle:
@@ -29,7 +28,7 @@ const sections = [
 		),
 	},
 	{
-		imageUrl: "bg-[url(/images/sections/2.png)]",
+		imageUrl: "bg-[url(/images/sections/4.png)]",
 		gradientColor: "to-slate-700",
 		title: "المشاريع",
 		subtitle: "تعزيز ونشر الوعي حول تراث الامام زين العابدين (ع)",
@@ -64,7 +63,7 @@ const sections = [
 		),
 	},
 	{
-		imageUrl: "bg-[url(/images/sections/3.png)]",
+		imageUrl: "bg-[url(/images/sections/4.png)]",
 		gradientColor: "to-slate-900",
 		title: "النشاطات",
 		subtitle: "في محاولة ذكرى الامام وتمديد التأثير الذي تركه عليه السلام",
@@ -105,102 +104,147 @@ const sections = [
 			</svg>
 		),
 	},
+	{
+		imageUrl: "bg-[url(/images/sections/4.png)]",
+		gradientColor: "to-yellow-900",
+		title: "الكتب والاصدارات",
+		subtitle: "مجموعة غنية من الكتب التي تسلط الضوء على حياته الكريمة (ع)",
+		icon: (
+			<svg
+				className="h-12 group-hover:h-16 p-2 w-auto transition-all duration-500 mx-3 text-gray-200"
+				width={24}
+				height={24}
+				viewBox="0 0 512 512"
+				fill="currentColor"
+				strokeWidth={1}
+				color="currentColor"
+			>
+				<path d="M430.135,14.339h0.017c0-0.008,0-0.008,0-0.008L430.135,14.339z" />
+				<path d="M508.672,96.445c-2.126-2.118-5.059-3.327-8.06-3.327c-17.409,0-34.202,2.092-50.238,4.983 c0.034-23.387,0.085-68.453,0.085-70.589c0-2.015-0.411-4.254-1.406-6.269c-0.721-1.509-1.715-2.881-2.83-3.979 c-1.698-1.638-3.585-2.649-5.3-3.259c-1.767-0.592-3.396-0.832-4.992-0.832c-1.852,0.018-3.67,0.274-5.78,1.166 c-19.45,8.302-39.312,20.205-58.436,34.407c-28.678,21.303-55.64,47.785-76.258,75.451c-10.308,13.841-19.038,28.001-25.539,42.074 c-4.854,10.54-8.49,21.046-10.497,31.405h-6.895c-2.916-14.982-9.125-30.256-17.649-45.496 c-15.831-28.146-39.638-56.223-66.635-80.554c-27.049-24.304-57.236-44.818-86.394-57.296c-2.092-0.884-3.91-1.14-5.762-1.158 c-1.424,0-2.865,0.18-4.408,0.643c-1.149,0.352-2.35,0.858-3.55,1.612c-1.784,1.115-3.585,2.856-4.802,5.078 c-1.236,2.195-1.784,4.742-1.767,7.006c0,2.136,0.051,47.202,0.085,70.589c-16.054-2.89-32.846-4.983-50.254-4.983 c-2.985,0-5.935,1.209-8.044,3.327C1.218,98.572,0,101.496,0,104.489V384.63c0,5.669,4.168,10.472,9.794,11.269 c14.836,2.11,32.314,6.046,50.718,11.638c27.632,8.371,57.356,20.454,83.752,35.333c13.19,7.427,25.54,15.556,36.379,24.21 c10.858,8.654,20.171,17.838,27.375,27.272c2.144,2.813,5.523,4.476,9.056,4.476h77.87c3.533,0,6.912-1.663,9.056-4.476 c9.588-12.59,22.966-24.699,38.678-35.737c23.567-16.594,52.262-30.77,80.682-41.507c28.42-10.738,56.601-18.053,78.864-21.209 c5.608-0.797,9.776-5.6,9.776-11.269V104.489C512,101.496,510.783,98.572,508.672,96.445z M209.099,461.737 c-8.079-7.718-17.032-14.974-26.671-21.74c-25.659-18.052-55.864-32.888-85.742-44.183c-25.968-9.811-51.627-16.903-73.907-20.874 V116.238c16.208,0.892,32.245,3.542,47.956,6.81c0.788,0.171,1.595,0.24,2.419,0.232l-0.103,0.488 c32.846,6.836,62.656,19.091,86.6,35.05c22.246,14.81,39.329,32.777,49.449,52.382V461.737z M168.483,145.559 c-23.824-15.883-52.571-28.086-84.062-35.573c0-2.136,0-5.96-0.018-10.882c-0.017-15.789-0.051-42.528-0.068-58.497 c13.928,6.981,28.352,15.978,42.382,26.414c26.912,19.973,52.519,45.152,71.575,70.777c9.536,12.795,17.443,25.71,23.12,38.008 c4.682,10.146,7.804,19.854,9.244,28.695h-7.066C211.962,181.681,192.702,161.699,168.483,145.559z M286.968,476.067h-61.935 v-255.63h17.666c0.018,0,0.018,0,0.018,0h26.568c0.016,0,0.016,0,0.034,0h17.649V476.067z M288.426,204.501h-7.101 c2.023-12.4,7.427-26.551,15.66-41.173c14.184-25.273,36.551-51.876,62.021-74.773c21.766-19.613,45.847-36.516,68.676-47.965 c-0.018,8.198-0.034,19.218-0.052,30.17c-0.016,16.989-0.034,33.729-0.051,39.226c-31.474,7.487-60.221,19.69-84.062,35.573 C319.299,161.699,300.055,181.681,288.426,204.501z M489.24,374.948c-13.739,2.444-28.747,6.072-44.355,10.806 c-29.09,8.816-60.169,21.414-88.316,37.271c-14.064,7.941-27.409,16.689-39.415,26.259c-5.008,3.996-9.759,8.139-14.235,12.427 V211.199c10.119-19.604,27.202-37.571,49.448-52.382c23.927-15.96,53.737-28.215,86.6-35.05l-0.103-0.488 c0.806,0.009,1.63-0.06,2.418-0.232c15.712-3.268,31.748-5.917,47.957-6.81V374.948z" />
+			</svg>
+		),
+	},
+	{
+		imageUrl: "bg-[url(/images/sections/4.png)]",
+		gradientColor: "to-yellow-900",
+		title: "الكتب والاصدارات",
+		subtitle: "مجموعة غنية من الكتب التي تسلط الضوء على حياته الكريمة (ع)",
+		icon: (
+			<svg
+				className="h-12 group-hover:h-16 p-2 w-auto transition-all duration-500 mx-3 text-gray-200"
+				width={24}
+				height={24}
+				viewBox="0 0 512 512"
+				fill="currentColor"
+				strokeWidth={1}
+				color="currentColor"
+			>
+				<path d="M430.135,14.339h0.017c0-0.008,0-0.008,0-0.008L430.135,14.339z" />
+				<path d="M508.672,96.445c-2.126-2.118-5.059-3.327-8.06-3.327c-17.409,0-34.202,2.092-50.238,4.983 c0.034-23.387,0.085-68.453,0.085-70.589c0-2.015-0.411-4.254-1.406-6.269c-0.721-1.509-1.715-2.881-2.83-3.979 c-1.698-1.638-3.585-2.649-5.3-3.259c-1.767-0.592-3.396-0.832-4.992-0.832c-1.852,0.018-3.67,0.274-5.78,1.166 c-19.45,8.302-39.312,20.205-58.436,34.407c-28.678,21.303-55.64,47.785-76.258,75.451c-10.308,13.841-19.038,28.001-25.539,42.074 c-4.854,10.54-8.49,21.046-10.497,31.405h-6.895c-2.916-14.982-9.125-30.256-17.649-45.496 c-15.831-28.146-39.638-56.223-66.635-80.554c-27.049-24.304-57.236-44.818-86.394-57.296c-2.092-0.884-3.91-1.14-5.762-1.158 c-1.424,0-2.865,0.18-4.408,0.643c-1.149,0.352-2.35,0.858-3.55,1.612c-1.784,1.115-3.585,2.856-4.802,5.078 c-1.236,2.195-1.784,4.742-1.767,7.006c0,2.136,0.051,47.202,0.085,70.589c-16.054-2.89-32.846-4.983-50.254-4.983 c-2.985,0-5.935,1.209-8.044,3.327C1.218,98.572,0,101.496,0,104.489V384.63c0,5.669,4.168,10.472,9.794,11.269 c14.836,2.11,32.314,6.046,50.718,11.638c27.632,8.371,57.356,20.454,83.752,35.333c13.19,7.427,25.54,15.556,36.379,24.21 c10.858,8.654,20.171,17.838,27.375,27.272c2.144,2.813,5.523,4.476,9.056,4.476h77.87c3.533,0,6.912-1.663,9.056-4.476 c9.588-12.59,22.966-24.699,38.678-35.737c23.567-16.594,52.262-30.77,80.682-41.507c28.42-10.738,56.601-18.053,78.864-21.209 c5.608-0.797,9.776-5.6,9.776-11.269V104.489C512,101.496,510.783,98.572,508.672,96.445z M209.099,461.737 c-8.079-7.718-17.032-14.974-26.671-21.74c-25.659-18.052-55.864-32.888-85.742-44.183c-25.968-9.811-51.627-16.903-73.907-20.874 V116.238c16.208,0.892,32.245,3.542,47.956,6.81c0.788,0.171,1.595,0.24,2.419,0.232l-0.103,0.488 c32.846,6.836,62.656,19.091,86.6,35.05c22.246,14.81,39.329,32.777,49.449,52.382V461.737z M168.483,145.559 c-23.824-15.883-52.571-28.086-84.062-35.573c0-2.136,0-5.96-0.018-10.882c-0.017-15.789-0.051-42.528-0.068-58.497 c13.928,6.981,28.352,15.978,42.382,26.414c26.912,19.973,52.519,45.152,71.575,70.777c9.536,12.795,17.443,25.71,23.12,38.008 c4.682,10.146,7.804,19.854,9.244,28.695h-7.066C211.962,181.681,192.702,161.699,168.483,145.559z M286.968,476.067h-61.935 v-255.63h17.666c0.018,0,0.018,0,0.018,0h26.568c0.016,0,0.016,0,0.034,0h17.649V476.067z M288.426,204.501h-7.101 c2.023-12.4,7.427-26.551,15.66-41.173c14.184-25.273,36.551-51.876,62.021-74.773c21.766-19.613,45.847-36.516,68.676-47.965 c-0.018,8.198-0.034,19.218-0.052,30.17c-0.016,16.989-0.034,33.729-0.051,39.226c-31.474,7.487-60.221,19.69-84.062,35.573 C319.299,161.699,300.055,181.681,288.426,204.501z M489.24,374.948c-13.739,2.444-28.747,6.072-44.355,10.806 c-29.09,8.816-60.169,21.414-88.316,37.271c-14.064,7.941-27.409,16.689-39.415,26.259c-5.008,3.996-9.759,8.139-14.235,12.427 V211.199c10.119-19.604,27.202-37.571,49.448-52.382c23.927-15.96,53.737-28.215,86.6-35.05l-0.103-0.488 c0.806,0.009,1.63-0.06,2.418-0.232c15.712-3.268,31.748-5.917,47.957-6.81V374.948z" />
+			</svg>
+		),
+	},
 ]
 
 export default function Home() {
 	return (
 		<main className="">
 			{/* Hero */}
-			<div className="overflow-hidden relative min-h-[80vh] bg-slate-100 flex flex-col items-center justify-center p-5 mx-auto sm:px-28">
-				{/* Silly divs for aesthetics */}
-				<div className="invisible md:visible absolute rounded-full border-[8px] border-secondary -right-52 top-44 w-96 h-96"></div>
-				<div className="invisible md:visible absolute rounded-full bg-primary-400 -left-44 -bottom-32 w-96 h-96"></div>
-				<div className="invisible md:visible absolute left-40 top-32">
-					<div className="grid grid-cols-7 gap-6">
-						{[...Array.from({ length: 63 })].map((_, i) => (
-							<div
-								key={i}
-								className="w-1 h-1 rounded-full bg-primary-400"
-							></div>
-						))}
-					</div>
-				</div>
-
-				<section className="relative w-full max-w-7xl">
-					<div className="grid grid-cols-1 gap-6 lg:gap-14 items-center">
-						<div className="max-w-xl mx-auto text-center">
-							<p className="max-w-xl text-base tracking-tight text-gray-600">
+			<div className="overflow-hidden h-screen flex flex-col items-end justify-end">
+				<section className="w-full">
+					<div className="grid md:grid-cols-2 gap-6 p-4 lg:gap-14 items-center">
+						<div className="max-w-xl mx-auto space-y-10">
+							<div className="">
+								<h1 className="text-5xl font-bold my-5">
+									مؤسسة الامام زين العابدين (ع)
+								</h1>
+								<h2 className="text-2xl text-primary-500 ">
+									للبحوث والدراسات
+								</h2>
+							</div>
+							<p className="max-w-xl text-lg tracking-tight text-gray-600">
 								رسالتنا هي إحياء التراث ونشر الوعي حول إمامنا
 								زين العابدين عليه السلام، من خلال البحوث
 								والأنشطة الثقافية والترويج للقيم الشيعية. نعمل
 								على تطوير المحتوى الثقافي والتقني لخدمة الإسلام
 								الشيعي والمساهمة في إثراء الفهم الديني والثقافي.
 							</p>
+							<a
+								href="#sections-showcase"
+								className="flex items-center gap-8 scroll-smooth"
+							>
+								<p className="hover:text-primary duration-150 text-2xl">
+									إطلع على اعمال المؤسسة
+								</p>
+								<ChevronLeftIcon
+									className="stroke-stone-50"
+									width={40}
+									height={40}
+								/>
+							</a>
 						</div>
-						<div className="order-first">
+						<a
+							className="pointer-events-none"
+							href="http://www.freepik.com"
+						>
 							<Image
 								width={1500}
 								height={1500}
 								priority
-								className="object-cover rounded-3xl object-center w-96 mx-auto bg-transparent"
+								className="object-cover rounded-3xl object-center w-[600px] bg-transparent"
 								alt="hero"
-								src="/logo.png"
+								src="/images/building.svg"
 							/>
-						</div>
+							<span className="hidden">
+								Designed by starline / Freepik
+							</span>
+						</a>
 					</div>
 				</section>
-				<div className="text-center text-primary lg:mt-12 space-x-4">
-					<p className="text-3xl font-bold my-8">
-						تعرف على الامام زين العابدين (ع)
-					</p>
-					<div className="flex flex-col sm:flex-row gap-4 sm:gap-12 font-extralight">
-						<Link
-							href="#"
-							className="bg-transparent hover:scale-105 duration-300 sm:text-lg text-xs font-bold py-2.5 px-6 rounded-full inline-flex items-center"
-						>
-							حياته الشريفة
-						</Link>
-						<Link
-							href="#"
-							className="bg-transparent hover:scale-105 duration-300 sm:text-lg text-xs font-bold py-2.5 px-6 rounded-full inline-flex items-center"
-						>
-							رسالة الحقوق
-						</Link>
-						<Link
-							href="#"
-							className="bg-transparent hover:scale-105 duration-300 sm:text-lg text-xs font-bold py-2.5 px-6 rounded-full inline-flex items-center"
-						>
-							الصحيفة السجادية
-						</Link>
+				<div className="h-1/5 w-full text-primary bg-[url(/images/islamic_pattern.jpg)] bg-opacity-10 bg-center bg-cover">
+					<div className="h-full w-full p-1 text-center bg-white bg-opacity-95">
+						<div className="h-full w-full bg-gradient-to-b from-transparent to-primary-100">
+							<p className="text-4xl font-bold my-8 text-start">
+								دعاء الامام في فضل عيد الفطر:
+							</p>
+							<q className="text-2xl font-extralight text-center w-full">
+								يَا مَنْ يَرْحَمُ مَنْ لا يَرْحَمُهُ الْعِبَادُ،
+								وَيَا مَنْ يَقْبَلُ مَنْ لا تَقْبَلُهُ
+								الْبِلادُ، وَيَا مَنْ لا يَحْتَقِرُ أَهْلَ
+								الْحَاجَةِ إِلَيْهِ، وَيَا مَنْ لا يُخَيِّبُ
+								الْمُلِحِّينَ عَلَيْهِ.
+							</q>
+						</div>
 					</div>
 				</div>
 			</div>
 
 			{/* sections showcase */}
-			<div className="flex h-screen flex-col gap-2 my-16">
-				<div className="flex flex-col justify-center items-center max-w-4xl mx-auto text-center">
-					<h1 className="text-4xl font-bold tracking-tight">
-						تعرف على مختلف المجالات التي تهتم بها المؤسسة
-					</h1>
-					<p className="leading-7 mt-6">
+			<div
+				id="sections-showcase"
+				className="flex h-screen flex-col gap-2 mx-20"
+			>
+				<div className="mt-10 mb-12">
+					<h1 className="text-4xl my-5">اعمال المؤسسة</h1>
+					<p className="text-2xl text-slate-500">
 						تعمل مؤسستنا على العديد من الجوانب العلمية والعملية على
 						حد سواء
 					</p>
 				</div>
-				<div className="flex justify-center h-full">
-					<div className="flex flex-col justify-center flex-grow items-stretch max-w-4xl w-full sm:flex-row sm:h-3/4 sm:overflow-hidden">
+				<div className="flex justify-center items-center h-3/5">
+					<div className="flex flex-col justify-center flex-grow items-stretch max-w-7xl w-full sm:flex-row sm:h-full sm:overflow-hidden">
 						{sections.map(
-							(item) =>
+							(item, index) =>
 								item && (
 									<div
-										key={item.title}
+										key={index}
 										className="group hover:grow-[10] hover:max-w-full cursor-pointer duration-500 ease-in-out flex-grow m-2 min-h-14 min-w-14 overflow-hidden pane relative rounded-3xl transition-all"
 									>
 										<div
 											className={`absolute bg-center bg-cover bg-white-500 ${item.imageUrl} bg-no-repeat duration-700 ease-in-out inset-0 scale-100 transition-all z-10`}
 										/>
 										<div
-											className={`absolute bg-gradient-to-b bottom-0 duration-700 ease-in-out from-transparent h-1/2 inset-x-0 opacity-0 group-hover:opacity-75 group-hover:translate-y-0 ${item.gradientColor} transform transition-all translate-y-1/2 z-20`}
+											className={`absolute bg-gradient-to-b bottom-0 duration-700 ease-in-out from-transparent h-1/5 inset-x-0 opacity-0 group-hover:opacity-75 group-hover:translate-y-0 ${item.gradientColor} transform transition-all translate-y-1/5 z-20`}
 										/>
 										<div className="absolute bottom-0 duration-700 ease-in-out flex group-hover:translate-x-2 right-0 mb-2 sm:translate-x-2 ml-3 sm:mb-6 sm:mr-2 transition-all z-30">
 											{item.icon}
@@ -221,68 +265,91 @@ export default function Home() {
 			</div>
 
 			{/* Acitivites section */}
-			<div className="space-y-10">
-				<div className="text-center">
-					<h1 className="text-5xl font-bold">اخبار المؤسسة</h1>
-					<p className="text-xl">
-						تعرف على اخبار المؤسسة ونشاطاتها اليومية
+			<section id="activities" className="bg-white">
+				<div className="mx-auto max-w-screen-2xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+					<h2 className="text-center mb-5 text-4xl  tracking-tight text-gray-900 sm:text-4xl">
+						اخبار المؤسسة
+					</h2>
+					<p className="text-center text-xl tracking-tight text-gray-400 sm:text-2xl">
+						تعرف على آخر اخبار المؤسسة اليومية
 					</p>
-				</div>
-				<div className="grid grid-cols-3 max-w-7xl mx-auto gap-10">
-					{Array.from({ length: 6 }).map((_, index) => (
-						<Link
-							href={"#"}
-							key={index}
-							className="space-y-7 group p-6"
-						>
-							<Image
-								src="/images/landscape-placeholder.svg"
-								alt="some event"
-								width={500}
-								height={500}
-								className=""
-							/>
-							<div>
-								<h3 className="text-slate-600">الصنف</h3>
-								<h2 className="font-bold">
-									عنوان طويل يوصف الخبر بشكل دقيق
-								</h2>
-							</div>
-							<button className="flex items-center text-xl group-hover:text-primary-300 duration-300">
-								قراءة الخبر
-								<CircleArrowLeft
-									className="opacity-0 group-hover:opacity-100 group-hover:-translate-x-5 duration-300"
-									stroke="rgb(124, 204, 198)"
-									width={80}
-									height={40}
+					<div className="mt-8 [column-fill:_balance] sm:columns-2 sm:gap-6 lg:columns-3 lg:gap-8">
+						{Array.from({ length: 9 }).map((_, index) => (
+							<Link
+								key={index}
+								href={`/activities`}
+								className="block mb-5 group hover:shadow-sm border border-transparent  duration-150"
+							>
+								<Image
+									alt=""
+									width={400}
+									height={400}
+									src="/images/activities/activity.png"
+									className="h-56 w-full object-cover"
 								/>
-							</button>
-						</Link>
-					))}
+
+								<div className="mt-2">
+									<dl>
+										<div>
+											<dt className="sr-only">الصنف</dt>
+
+											<dd className="text-sm text-gray-500">
+												<Badge className="bg-trasparent px-2 bg-primary py-1 mb-2 hover:bg-primary text-gray-200 hover:text-gray-100 border border-primary">
+													الصنف
+												</Badge>
+											</dd>
+										</div>
+
+										<div>
+											<dt className="sr-only">العنوان</dt>
+
+											<dd className="font-medium">
+												عنوان طويل يوصف الخبر بشكل كافي
+											</dd>
+										</div>
+										<div className="my-4">
+											<dt className="sr-only">الوصف</dt>
+
+											<dd className="font-light text-sm text-gray-400">
+												وصف عن الخبر المنشور ليجذب
+												انتباه القارء ويعتبر هذا الوصف
+												ملخص صغير طوله يكون حوالي
+												السطرين
+											</dd>
+										</div>
+										<div className=" flex items-center justify-right text-lg">
+											اقرأ المزيد
+											<ChevronLeftIcon className="opacity-0 group-hover:opacity-100 group-hover:-translate-x-4 duration-200" />
+										</div>
+									</dl>
+								</div>
+							</Link>
+						))}
+					</div>
 				</div>
-			</div>
+			</section>
 
 			{/* Publication section */}
-			<div className="flex flex-col items-center gap-28 my-20">
-				<div className="text-center h-1/5">
-					<h1 className="text-5xl font-bold">اخبار المؤسسة</h1>
-					<p className="text-xl">
-						تعرف على اخبار المؤسسة ونشاطاتها اليومية
+			<div className="flex flex-col gap-28 px-20 bg-gradient-to-b from-transparent via-zinc-100 to-transparent">
+				<div className="h-1/5">
+					<h1 className="text-4xl my-5">اصدارات المؤسسة</h1>
+					<p className="text-2xl text-slate-500">
+						تعرف على اصدارات المؤسسة والكتب التي تنشرها
 					</p>
 				</div>
-				<div className="flex flex-wrap justify-center gap-y-16 gap-x-6 h-4/5">
+				<div className=" mx-auto flex flex-wrap justify-center gap-16 h-4/5">
 					{Array.from({ length: 4 }).map((_, index) => (
 						<Link
 							key={index}
-							href={"#"}
-							className="flex h-1/4 gap-10 text p-6 m-2 hover:bg-slate-50 shadow-lg border-[1px] border-transparent hover:border-primary-300 hover:shadow-primary-250 rounded-2xl hover:-translate-y-2 duration-300"
+							href={"/publications"}
+							className="flex group h-1/4 gap-10 text p-6 m-2 hover:bg-slate-50 shadow-lg border-[1px] border-transparent hover:border-primary-300 hover:shadow-primary-250 rounded-2xl hover:-translate-y-2 duration-300"
 						>
 							<Image
-								src={"images/landscape-placeholder.svg"}
+								src={"/images/sections/4.png"}
 								alt="book cover"
 								width={200}
 								height={200}
-								className="-translate-y-1/3 rounded-2xl"
+								className="-translate-y-1/3 rounded-xl border-[1px] border-transparent delay-75 group-hover:border-primary-300 duration-300"
 							/>
 							<div className="flex flex-col justify-around">
 								<div>
@@ -303,19 +370,70 @@ export default function Home() {
 						</Link>
 					))}
 				</div>
-				<button className="flex gap-10 w-fit items-center text-2xl text-primary-300 duration-150 hover:scale-105 active:scale-95  hover:shadow-primary-250 shadow-sm px-4 py-2 rounded-md ">
-					قراءة المزيد
-					<CircleArrowLeft
-						stroke="rgb(124, 204, 198)"
-						width={40}
-						height={40}
-					/>
-				</button>
+				<div className="flex w-full justify-center">
+					<Link
+						href={"/publications"}
+						className="group flex gap-10 text-2xl items-center hover:text-primary duration-150 hover:scale-105 active:scale-95  hover:shadow-primary-250"
+					>
+						المزيد من اصداراتنا
+						<ChevronLeftIcon
+							className=""
+							stroke="rgb(124, 204, 198)"
+							width={40}
+							height={40}
+						/>
+					</Link>
+				</div>
 			</div>
 			{/* Testimonials section */}
-			<div className="h-screen flex justify-center items-center">
-				<h1 className="text-xl">testimonials</h1>
-			</div>
+			<section id="testimonials" className="bg-white">
+				<div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+					<h2 className="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+						اقرأ ماذا يقول الأخرون عنا
+					</h2>
+					<div className="mt-8 [column-fill:_balance] sm:columns-2 sm:gap-6 lg:columns-3 lg:gap-8">
+						{Array.from({ length: 9 }).map((_, index) => (
+							<div
+								key={index}
+								className="mb-8 sm:break-inside-avoid"
+							>
+								<blockquote className="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
+									<div className="flex items-center gap-4">
+										<Image
+											alt=""
+											src="/images/avatars/1.png"
+											width={50}
+											height={50}
+											className="size-14 rounded-full object-cover"
+										/>
+
+										<div className="flex items-center justify-between w-full">
+											<div>
+												<p className="mt-0.5 text-lg font-medium text-gray-900">
+													الشيخ فلان الفلاني
+												</p>
+
+												<p className="text-sm font-medium text-gray-900">
+													رئيس قسم الاعلام في الشركة
+													الفلانية
+												</p>
+											</div>
+											<XIcon fill="#220000" />
+										</div>
+									</div>
+
+									<p className="mt-4 text-gray-700">
+										{"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam consequuntur soluta quas itaque vitae recusandae iure eligendi temporibus, dignissimos eos doloremque porro amet aliquam consequatur, atque pariatur. Aut, laboriosam minima.".substring(
+											0,
+											Math.random() * 700,
+										)}
+									</p>
+								</blockquote>
+							</div>
+						))}
+					</div>
+				</div>
+			</section>
 		</main>
 	)
 }

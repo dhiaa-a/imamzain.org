@@ -11,9 +11,7 @@ import {
 	NavigationMenuLink,
 	NavigationMenuList,
 	NavigationMenuTrigger,
-	navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import Socials from "../ui/socials"
 import { LanguagesIcon, Manuscript } from "../icons"
 
 const NavigationItems: { href: string; label: string; content: JSX.Element }[] =
@@ -56,7 +54,8 @@ export default function Navigation() {
 						</Link>
 					</NavigationMenuTrigger>
 					<NavigationMenuContent>
-						<NavMenuContent />
+						{/* <NavMenuContent /> */}
+						hi
 					</NavigationMenuContent>
 				</NavigationMenuItem>
 			</NavigationMenuList>
@@ -204,7 +203,7 @@ const NavMenuContent = () => (
 			<div className="h-4 border-r-2 border-slate-700"></div>
 			<Link href="#"> حمل تطبيق الهاتف</Link>
 			<div className="h-4 border-r-2 border-slate-700"></div>
-			<Socials />
+			something here
 		</div>
 	</div>
 )

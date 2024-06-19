@@ -1,13 +1,4 @@
 import { SearchIcon } from "@/components/icons"
-import {
-	Pagination,
-	PaginationContent,
-	PaginationEllipsis,
-	PaginationItem,
-	PaginationLink,
-	PaginationNext,
-	PaginationPrevious,
-} from "@/components/ui/pagination"
 import { DownloadIcon, ListBulletIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 
@@ -188,41 +179,6 @@ export default function page() {
 										</tbody>
 									</table>
 									{/* End Table */}
-									{/* Footer */}
-									<div className="flex border-t-[1px] p-3">
-										<Pagination>
-											<PaginationContent className="flexrowrev">
-												<PaginationItem>
-													<PaginationPrevious href="#" />
-												</PaginationItem>
-												<PaginationItem>
-													<PaginationLink href="#">
-														1
-													</PaginationLink>
-												</PaginationItem>
-												<PaginationItem>
-													<PaginationLink
-														href="#"
-														isActive
-													>
-														2
-													</PaginationLink>
-												</PaginationItem>
-												<PaginationItem>
-													<PaginationLink href="#">
-														3
-													</PaginationLink>
-												</PaginationItem>
-												<PaginationItem>
-													<PaginationEllipsis />
-												</PaginationItem>
-												<PaginationItem>
-													<PaginationNext href="#" />
-												</PaginationItem>
-											</PaginationContent>
-										</Pagination>
-									</div>
-									{/* End Footer */}
 								</div>
 							</div>
 						</div>
