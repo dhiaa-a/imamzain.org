@@ -465,7 +465,7 @@ export default function Footer() {
 								معلومات التواصل
 							</p>
 
-							<ul className="mt-8 space-y-4 text-sm">
+							<ul dir="ltr" className="mt-8 space-y-4 text-sm">
 								<li>
 									<a
 										className="flex items-center justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end"
@@ -492,7 +492,7 @@ export default function Footer() {
 
 								<li className="flex items-start justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end">
 									<address className="-mt-0.5 flex-1 not-italic text-gray-700">
-										شارع ملحق الروان, النجف الاشرف, العراق
+										العراق، النجف الاشرف، شارع ملحق الروان
 									</address>
 									<LocationIcon width={18} fill="#374151" />
 								</li>

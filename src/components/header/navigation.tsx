@@ -17,7 +17,7 @@ import { LanguagesIcon, Manuscript } from "../icons"
 const NavigationItems: { href: string; label: string; content: JSX.Element }[] =
 	[
 		{
-			href: "/imamzain",
+			href: "/coming-soon",
 			label: "الامام زين العابدين",
 			content: (
 				<div>

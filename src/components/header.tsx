@@ -132,7 +132,7 @@ type LinkType = {
 
 const links: LinkType[] = [
 	{
-		href: "/imamzain",
+		href: "/coming-soon",
 		label: "الامام زين العابدين",
 		menu: (
 			<div className="flex shadow-xl bg-white flex-col">

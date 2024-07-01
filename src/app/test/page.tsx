@@ -1,12 +1,6 @@
-"use client"
-
-import { LanguagesIcon, Placehold, SearchIcon } from "@/components/icons"
 import Image from "next/image"
-import { useState } from "react"
 
 export default function Page() {
-	const [hoveredIndex, sethoveredIndex] = useState<number | null>(null)
-	const [menuOpen, setmenuOpen] = useState(false)
 	return (
 		<>
 			{/* <div className="max-w-screen-2xl flex justify-between p-6 m-auto items-center">
@@ -66,54 +60,26 @@ export default function Page() {
 			<div className="w-full h-screen flex justify-center item-center">
 				hi
 			</div> */}
-			<div className="grid grid-cols-1 gap-2 lg:grid-cols-4 p-2">
-				{itemCodes.slice(1, 40).map((item) => (
+
+			<div className="grid grid-cols-4 gap-2 p-1">
+				{itemCodes.map((item) => (
 					<div
 						key={item}
-						className="bg-white shadow-md py-6 flex justify-around text-[6px] border-t-8 border-b-8 border-primary"
+						className="bg-white shadow-md py-2 border-t-8 border-b-8 border-primary"
 					>
-						<div className="flex flex-col text-center gap-3 font-extralight  ustify-center items-center w-1/2">
-							<Image
-								src="/logo.png"
-								width={300}
-								height={300}
-								alt="logo"
-								className=" w-2/3"
-							/>
-							<p className="mx-2">
-								ممتلكات مؤسسة الإمام زين العابدين للبحوث
-								والدراسات - العتبة الحسينية المقدسة
-							</p>
-						</div>
-						<div className="min-h-full min-w-0.5 bg-slate-200 rounded-full" />
-						<div className="w-1/2 flex flex-col justify-center items-center">
-							<table className="text-[10px] text-center">
-								<tbody>
-									<tr>
-										<td className="px-1">الكود:</td>
-										<td className="px-1">{item}</td>
-									</tr>
-
-									<tr>
-										<td className="px-1">الوصف:</td>
-										<td className="px-1">1st deatil</td>
-									</tr>
-
-									<tr>
-										<td className="px-1">الشعبة:</td>
-										<td className="px-1">1st deatil</td>
-									</tr>
-
-									<tr>
-										<td className="px-1">تاريخ:</td>
-										<td className="px-1">1st deatil</td>
-									</tr>
-									<tr>
-										<td className="px-2">الطابق:</td>
-										<td className="px-2">1st deatil</td>
-									</tr>
-								</tbody>
-							</table>
+						<div className="flex justify-around items-center font-extralight text-center">
+							<div className="flex flex-col text-center gap-3 font-extralight justify-center items-center">
+								<Image
+									src="/logo.png"
+									width={400}
+									height={400}
+									alt="logo"
+									className="w-16 h-auto"
+								/>
+							</div>
+							<div className="text-center font-extralight tracking-[0.3rem] font-serif pt-1 text-[12px]">
+								{item}
+							</div>
 						</div>
 					</div>
 				))}

@@ -22,7 +22,7 @@ const tableCategory = [
 
 export default function page() {
 	return (
-		<div className="max-w-7xl mx-auto border-[1px] border-slate-300 rounded-xl shadow-lg my-10">
+		<div className="max-w-7xl mx-auto border-[1px] border-slate-300 rounded-xl shadow-lg my-40">
 			<div className="flex justify-center border-b-2 border-slate-200 my-2">
 				{tableCategory.map((cat) => (
 					<button
